@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!--
+  App Store 스크린샷 렌더러 (T-62).
+  원본: Claude Design 프로젝트 "Rest Timer 1b" 의 `App Store Screenshots.dc.html` (2026-09-21 에 읽은 판).
+  원본은 Claude Design 런타임(support.js, x-dc 템플릿, ios-frame.jsx)이 있어야 그려지므로,
+  정적 HTML로 옮긴 뒤 T-63에서 카피·레이아웃·앱 상태를 개선했다. 실제 기기 캡처가 아닌 목업이다.
+
+  ?lang=ko|en  &secs=45|60|90  &screen=s1..s8|w1..w3  (screen 없으면 전부 나열)
+  PNG 로 뽑기: ./render.sh
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NextSet · App Store screenshots</title>
+<style>
+/* T-63: preserve brand, native CSS. Variance 5 / motion 1 / density 3.
+   Fixed export canvases; the review gallery scales them without changing composition. */
+:root{--brand:#ff9500;--ink:#0c0c0e;--muted:#aaa9ae}
+*{box-sizing:border-box}
+body{margin:0;background:#171719;color:#fff;font-family:-apple-system,system-ui,"Apple SD Gothic Neo",sans-serif;-webkit-font-smoothing:antialiased}
+body.single{background:#000;overflow:hidden}
+#root{display:grid;grid-template-columns:repeat(auto-fit,330px);gap:28px;padding:32px;justify-content:center}
+body.single #root{display:block;padding:0}
+.shot{width:1284px;height:2778px;position:relative;overflow:hidden;background:var(--ink);color:#fff;flex:none}
+.shot.orange{background:var(--brand);color:#080808}
+.copy{position:absolute;left:100px;right:88px;top:190px}
+.copy h1{margin:0;font-size:138px;font-weight:780;letter-spacing:-6px;line-height:1.12;word-break:keep-all}
+.copy h1 span{color:var(--brand)}
+.orange .copy h1 span{color:inherit}
+.copy p{margin:35px 0 0;font-size:38px;line-height:1.5;letter-spacing:-.9px;color:#b8b8be}
+.orange .copy p{color:#372100}
+html[lang=en] .copy h1{font-size:133px;letter-spacing:-5px}
+html[lang=en] #s4 .copy h1{font-size:112px}
+html[lang=en] .copy p{font-size:35px;letter-spacing:-.5px}
+.phone{position:absolute;left:190.5px;top:760px;transform:scale(2.1);transform-origin:0 0}
+.phone-shell{padding:14px;border-radius:62px;background:#1c1c1e;box-shadow:inset 0 0 0 2px #55555a,0 28px 50px #0005}
+.review-header{padding:32px 32px 0;max-width:1664px;margin:auto}
+.review-header h1{font-size:26px;margin:0 0 12px;letter-spacing:-.6px}
+.review-header p{margin:0 0 16px;color:#b8b8be;font-size:14px;line-height:1.6}
+.review-header nav{display:flex;gap:10px;flex-wrap:wrap}
+.review-header a{color:#fff;border:1px solid #666;padding:8px 14px;border-radius:6px;text-decoration:none}
+.review-header a[aria-current=page]{color:#000;background:var(--brand);border-color:var(--brand)}
+a:focus-visible{outline:3px solid var(--brand);outline-offset:4px}
+.preview{width:330px;margin:0}
+.preview a{display:block;color:inherit;text-decoration:none}
+.preview-canvas{width:321px;height:694.5px;overflow:hidden}
+.preview-canvas>.shot{transform:scale(.25);transform-origin:0 0}
+.preview figcaption{font-size:13px;color:#b8b8be;margin-top:10px}
+.watch-preview .preview-canvas{height:251px;width:205px}
+.watch-preview .preview-canvas>div{transform:scale(.5);transform-origin:0 0}
+body.overview #root{grid-template-columns:repeat(4,330px);justify-content:start;gap:26px;padding:32px}
+body.overview .review-header nav{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const lang = q.get('lang') === 'en' ? 'en' : 'ko';
+const requestedSeconds = Number(q.get('secs') || 60);
+const secs = [45,60,90].includes(requestedSeconds) ? requestedSeconds : 60;
+const only = q.get('screen');
+document.documentElement.lang = lang;
+
+const S = {
+  ko: { appName:'다음세트', h1:'숫자 하나만 보면 됩니다', h2:'탭 한 번, 휴식 시작', h3:'마지막 3초는 손에서 느껴요', h4:'화면을 꺼도 계속 보여요', h5:'다른 앱 위에서도', h6:'홈 화면에서 바로 시작', h7:'손목에서도 똑같이', h8:'끝나면 숫자 몇 개만',
+    resting:'휴식 중', setCap:'세트 3 완료', tapPause:'탭하여 일시정지', skip:'건너뛰기', secUnit:'초', setsTab:'세트 휴식', countdownTab:'카운트다운', recent:'최근', start:'휴식 시작', haptic:'햅틱 3·2·1', date:'9월 12일 토요일', pause:'일시정지', pauseShort:'정지', tapStart:'탭하여 시작', wTapStart:'초 · 탭하여 시작', restOver:'휴식 끝', nextSetKicker:'NEXT SET', nextRest:'다음 휴식 시작', workoutDone:'운동 완료', setsDone:'세트 완료', totalRest:'총 휴식', avgRest:'평균 휴식', skippedRest:'건너뛴 휴식', again:'한 번 더', finish:'끝내기', avgUnit:'초' },
+  en: { appName:'NextSet', h1:'One number. That’s it.', h2:'One tap. Rest starts.', h3:'Feel the last 3 seconds.', h4:'Stays on, screen off.', h5:'On top of any app.', h6:'Start from your Home Screen.', h7:'Same on your wrist.', h8:'When you’re done, just the numbers.',
+    resting:'Resting', setCap:'Set 3 done', tapPause:'Tap to pause', skip:'Skip', secUnit:'sec', setsTab:'Sets', countdownTab:'Countdown', recent:'RECENT', start:'Start rest', haptic:'Haptic 3·2·1', date:'Saturday, September 12', pause:'Pause', pauseShort:'Pause', tapStart:'Tap to start', wTapStart:'sec · tap to start', restOver:'Rest over', nextSetKicker:'NEXT SET', nextRest:'Start next rest', workoutDone:'Workout done', setsDone:'sets done', totalRest:'Total rest', avgRest:'Avg rest', skippedRest:'Skipped', again:'Again', finish:'Done', avgUnit:'s' }
+};
+const copy = {
+  ko: [
+    ['세트 사이,','딱 필요한 휴식.','큼직한 숫자로 남은 시간을 한눈에.'],
+    ['내 휴식 시간,','탭 한 번으로.','자주 쓰는 시간을 고르고 바로 시작하세요.'],
+    ['마지막 3초,','손끝으로 알아요.','소리와 햅틱으로 다음 세트를 준비하세요.'],
+    ['잠금화면에서도','휴식은 한눈에.','작은 위젯부터 Live Activity까지.'],
+    ['다른 앱을 봐도','놓치지 않게.','Dynamic Island에서 휴식 시간을 확인하세요.'],
+    ['홈 화면에서','바로 시작.','위젯에서 원하는 휴식 시간을 탭하세요.'],
+    ['손목 위에서도','다음세트.','Apple Watch에서 시작하고, 조절하고.'],
+    ['오늘의 운동,','숫자로 한눈에.','완료한 세트와 총 휴식 시간을 확인하세요.']
+  ],
+  en: [
+    ['Between sets.','Time to rest.','One big number. Your remaining rest, at a glance.'],
+    ['Your rest.','One tap away.','Pick your time and start the next rest.'],
+    ['Feel the final','3 seconds.','Sound and haptics cue your next set.'],
+    ['Your rest.','On the Lock Screen.','Small widget. Live Activity. Rest at a glance.'],
+    ['Switch apps.','Stay on track.','Keep your rest in view with Dynamic Island.'],
+    ['Tap a widget.','Start your rest.','Choose a rest time from your Home Screen.'],
+    ['NextSet.','On your wrist.','Start and adjust your rest on Apple Watch.'],
+    ['Workout done.','See your numbers.','Your completed sets and rest time, together.']
+  ]
+};
+const t = S[lang], rem = Math.max(1, secs - 18);
+t.endWorkout = lang === 'ko' ? '운동 끝내기' : 'End workout';
+t.history = lang === 'ko' ? '최근 운동' : 'History';
+t.changeTime = lang === 'ko' ? '시간' : 'Time';
+const format = seconds => Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+const total = secs * 7 + Math.max(1, secs - 16);
+const statRest = format(total);
+const statAvg = format(Math.floor(total / 8));
+
+// ios-frame.jsx 의 IOSDevice(dark) 를 그대로 옮긴 것
+const iosDevice = (children) => `
+<div style="width:402px;height:874px;border-radius:48px;overflow:hidden;position:relative;background:#000;box-shadow:0 40px 80px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.12);font-family:-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased">
+<div style="position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;border-radius:24px;background:#000;z-index:5"></div>
+<div style="position:absolute;top:0;left:0;right:0;z-index:10">
+<div style="display:flex;gap:154px;align-items:center;justify-content:center;padding:21px 24px 19px;box-sizing:border-box;position:relative;z-index:20;width:100%">
+<div style="flex:1;height:22px;display:flex;align-items:center;justify-content:center;padding-top:1.5px"><span style="font-family:-apple-system,'SF Pro',system-ui;font-weight:590;font-size:17px;line-height:22px;color:#fff">9:41</span></div>
+<div style="flex:1;height:22px;display:flex;align-items:center;justify-content:center;gap:7px;padding-top:1px;padding-right:1px">
+<svg width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill="#fff"/><rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill="#fff"/><rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill="#fff"/><rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill="#fff"/></svg>
+<svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill="#fff"/><path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill="#fff"/><circle cx="8.5" cy="10.5" r="1.5" fill="#fff"/></svg>
+<svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="#fff" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="20" height="9" rx="2" fill="#fff"/><path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill="#fff" fill-opacity="0.4"/></svg>
+</div></div></div>
+<div style="height:100%;display:flex;flex-direction:column"><div style="flex:1;overflow:auto">${children}</div></div>
+<div style="position:absolute;bottom:0;left:0;right:0;z-index:60;height:34px;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;pointer-events:none"><div style="width:139px;height:5px;border-radius:100px;background:rgba(255,255,255,0.7)"></div></div>
+</div>`;
+
+const headline = (index) => {
+  const [first, second, detail] = copy[lang][index - 1];
+  return `<header class="copy"><h1>${first}<br><span>${second}</span></h1><p>${detail}</p></header>`;
+};
+
+// The complete 430×902 device fits between y=790 and y=2748.
+const phoneShot = (id, h, inner, { bg = '#0c0c0e' } = {}) => `
+<article id="${id}" class="shot ${bg === '#FF9500' ? 'orange' : ''}">
+${headline(Number(id.slice(1)))}
+<div class="phone"><div class="phone-shell">${iosDevice(inner)}</div></div>
+</article>`;
+
+const dots = (n, size, gap, extraWhite, mt) => `<div style="display:flex;gap:${gap}px${mt ? `;margin-top:${mt}px` : ''}">${`<div style="width:${size}px;height:${size}px;border-radius:${Math.ceil(size / 2)}px;background:#FF9500"></div>`.repeat(n)}${extraWhite ? `<div style="width:${size}px;height:${size}px;border-radius:${Math.ceil(size / 2)}px;background:#fff"></div>` : ''}</div>`;
+
+const restingControls = `
+<div style="display:flex;gap:12px">
+<div style="flex:2;height:60px;border-radius:30px;background:#1C1C1E;display:flex;align-items:stretch;overflow:hidden"><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:rgba(255,255,255,.6)">−10</div><div style="width:1px;background:rgba(255,255,255,.1);margin:14px 0"></div><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600">+10</div><div style="width:1px;background:rgba(255,255,255,.1);margin:14px 0"></div><div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600">+30</div></div>
+<div style="white-space:nowrap;flex:1.4;height:60px;border-radius:30px;background:#FF9500;color:#000;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">${t.skip}</div>
+</div><div style="height:44px;margin-top:6px;display:flex;align-items:center;justify-content:center;color:#FF453A;font-size:17px;font-weight:600">${t.endWorkout}</div>`;
+
+const restingScreen = (center, barColor, barWidth, bg = '#000') => `
+<div style="display:flex;flex-direction:column;height:874px;padding:66px 24px 40px;box-sizing:border-box;background:${bg};color:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600"><span>${lang === 'ko' ? '휴식' : 'Rest'}</span><span style="opacity:.5">${t.setCap}</span></div>
+${dots(3, 8, 6, true, 14)}
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">${center}</div>
+<div style="height:3px;border-radius:2px;background:#1C1C1E;margin-bottom:20px;overflow:hidden"><div style="height:100%;border-radius:2px;background:${barColor};width:${barWidth}"></div></div>
+${restingControls}
+</div>`;
+
+const s1 = restingScreen(`
+<div style="font-size:220px;font-weight:700;letter-spacing:-12px;line-height:.9;font-variant-numeric:tabular-nums;color:#FF9500">${rem}</div>
+<div style="white-space:nowrap;font-size:15px;opacity:.45;margin-top:18px">${t.tapPause}</div>`, '#FF9500', `${rem / secs * 100}%`);
+
+const preset = (v, active) => `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px;border-bottom:2px solid ${active ? '#FF9500' : 'transparent'};color:${active ? '#FF9500' : 'rgba(255,255,255,.45)'}"><span style="font-size:22px;font-weight:600">${v}</span><span style="font-size:10px;font-weight:600;${!active && v === (secs === 45 ? 60 : 45) ? 'opacity:.6' : 'opacity:0'}">${t.recent}</span></div>`;
+
+const s2 = `
+<div style="display:flex;flex-direction:column;height:874px;padding:66px 24px 40px;box-sizing:border-box;background:#000;color:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;gap:18px;font-size:17px;font-weight:600"><span style="padding-bottom:4px;border-bottom:2px solid #FF9500">${t.setsTab}</span><span style="padding-bottom:4px;border-bottom:2px solid transparent;color:rgba(255,255,255,.4)">${t.countdownTab}</span></div>
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:36px;height:36px;border-radius:18px;background:#1C1C1E;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg></div></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px"><div><div style="font-size:14px;color:#888">${t.setCap}</div>${dots(3,8,6,false,8)}</div><span style="font-size:14px;color:#FF9500">${t.history}</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
+<div style="font-size:200px;font-weight:700;letter-spacing:-10px;line-height:.9;color:#FF9500;font-variant-numeric:tabular-nums">${secs}</div>
+<div style="font-size:20px;opacity:.5;margin-top:10px">${lang === 'ko' ? '초 휴식' : 'sec rest'}</div>
+<div style="display:flex;gap:28px;margin-top:36px">
+<div style="width:64px;height:64px;border-radius:32px;border:1.5px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:30px">−</div>
+<div style="width:64px;height:64px;border-radius:32px;border:1.5px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:30px">+</div>
+</div></div>
+<div style="display:flex;justify-content:space-between;margin-bottom:28px;padding:0 4px">
+${[30,45,60,90,120].map(v => preset(v, v === secs)).join('')}
+</div>
+<div style="display:flex;gap:10px">
+
+<div style="white-space:nowrap;flex:1;height:64px;border-radius:32px;background:#FF9500;color:#000;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center">${t.start}</div>
+</div><div style="height:44px;margin-top:6px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;color:#FF453A">${t.endWorkout}</div>
+</div>`;
+
+const s3 = restingScreen(`
+<div style="font-size:220px;font-weight:700;letter-spacing:-12px;line-height:.9;font-variant-numeric:tabular-nums;color:#fff;transform:scale(1.1)">3</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:22px;height:20px">
+<div style="width:10px;height:10px;border-radius:5px;background:#fff;transform:scale(1.5)"></div><div style="width:10px;height:10px;border-radius:5px;background:rgba(255,255,255,.2)"></div><div style="width:10px;height:10px;border-radius:5px;background:rgba(255,255,255,.2)"></div>
+
+</div>`, '#fff', `${3 / secs * 100}%`, '#B35F00');
+
+const laBtn = (label) => `<div style="white-space:nowrap;width:44px;height:36px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">${label}</div>`;
+
+// LockScreenWidget.circular: monochrome running progress and m:ss, one 1×1 slot.
+// The same remaining time as the Live Activity below; this is still a mockup.
+const lockCircular = `
+<div class="lock-circular" aria-label="${lang === 'ko' ? '잠금화면 1×1 원형 위젯' : 'Lock Screen 1×1 circular widget'}" style="width:72px;height:72px;position:relative;display:grid;place-items:center;border-radius:50%;background:#ffffff12">
+<div style="position:absolute;inset:3px;border-radius:50%;background:conic-gradient(#fff 0deg ${rem / secs * 360}deg,#ffffff30 ${rem / secs * 360}deg 360deg);mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))"></div>
+<span style="font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.6px">${format(rem)}</span>
+</div>`;
+
+const s4 = `
+<div style="display:flex;flex-direction:column;height:874px;padding:74px 16px 90px;box-sizing:border-box;background:linear-gradient(180deg,#1a1a1a 0%,#0a0a0a 100%);align-items:center;color:#fff">
+<div style="font-size:15px;font-weight:600;opacity:.85">${t.date}</div>
+<div style="font-size:92px;font-weight:300;letter-spacing:-3px;line-height:1;margin-top:2px">9:41</div>
+<div style="width:100%;display:flex;justify-content:center;margin-top:22px">${lockCircular}</div>
+<div style="flex:1"></div>
+<div style="width:100%;border-radius:24px;padding:18px 20px;box-sizing:border-box;display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.14);color:#fff">
+<div style="font-size:64px;font-weight:700;letter-spacing:-3px;line-height:1;font-variant-numeric:tabular-nums;min-width:96px;color:#FF9500">${rem}</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px"><div style="font-size:15px;font-weight:600">${t.resting}</div>${dots(3, 7, 5, true)}</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;gap:8px">${laBtn('❙❙')}${laBtn('+10')}${laBtn('+30')}</div>
+<div style="white-space:nowrap;height:36px;border-radius:12px;background:#FF9500;color:#000;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">${t.skip}</div>
+</div></div>
+</div>`;
+
+const bar = (w) => `<div style="height:16px;border-radius:6px;background:rgba(255,255,255,.1);width:${w}%"></div>`;
+const diBtn = (label) => `<div style="white-space:nowrap;flex:1;height:40px;border-radius:20px;background:#1C1C1E;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600">${label}</div>`;
+
+const s5 = `
+<div style="display:flex;flex-direction:column;height:874px;padding:120px 24px 40px;box-sizing:border-box;background:#0d0d0f;color:#fff;gap:22px;position:relative">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="width:120px;height:26px;border-radius:8px;background:rgba(255,255,255,.14)"></div><div style="width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.14)"></div></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">${bar(92)}${bar(100)}${bar(78)}${bar(96)}${bar(60)}</div>
+<div style="height:200px;border-radius:20px;background:rgba(255,255,255,.08)"></div>
+<div style="display:flex;flex-direction:column;gap:10px">${bar(88)}${bar(100)}${bar(70)}</div>
+<div style="position:absolute;top:11px;left:20px;right:20px;border-radius:40px;background:#000;padding:18px 22px 16px;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:70">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="font-size:52px;font-weight:700;letter-spacing:-2px;line-height:1;color:#FF9500">${rem}</div>
+<div style="text-align:right"><div style="font-size:15px">${t.resting}</div><div style="font-size:13px;opacity:.6;margin-top:5px">${t.setCap}</div></div>
+</div>
+<div style="display:flex;gap:6px;margin-top:16px">${diBtn('❙❙')}${diBtn('+10')}${diBtn('+30')}</div>
+<div style="height:36px;border-radius:18px;background:#FF9500;color:#000;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-top:8px">${t.skip}</div></div>
+</div>`;
+
+// Two separate cropped device scenes distinguish compact and expanded states.
+const compactIslandScreen = `
+<div style="height:874px;background:#0d0d0f;padding:100px 24px 40px;position:relative">
+<div style="display:flex;flex-direction:column;gap:14px">${bar(58)}${bar(92)}${bar(100)}${bar(78)}</div>
+<div style="height:160px;border-radius:20px;background:#ffffff12;margin-top:28px"></div>
+<div class="compact-island" style="position:absolute;top:11px;left:99px;width:204px;height:37px;border-radius:24px;background:#000;display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:70">
+${dots(3,5,3,true)}<span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:#FF9500">${format(rem)}</span>
+</div></div>`;
+const islandScene = (inner, top, label, compact = false) => `
+<div style="position:absolute;left:193px;top:${top}px;font-size:44px;font-weight:600;letter-spacing:-1px;color:#d5d5da">${label}</div>
+<div class="island-crop" style="position:absolute;left:193.45px;top:${top + 90}px;width:933.1px;height:740px;overflow:hidden;mask-image:linear-gradient(#000 0%,#000 78%,transparent 100%)">
+<div style="width:430px;transform:scale(2.17);transform-origin:0 0"><div class="phone-shell">${compact ? iosDevice(inner).replace('gap:154px', 'gap:198px') : iosDevice(inner)}</div></div>
+</div>`;
+const islandShot = `<article id="s5" class="shot">
+${headline(5)}
+${islandScene(compactIslandScreen, 780, lang === 'ko' ? '평소에는 작게' : 'Compact at a glance', true)}
+${islandScene(s5, 1740, lang === 'ko' ? '길게 눌러 조절' : 'Touch and hold to adjust')}
+</article>`;
+
+const iconPh = (extra = '') => `<div style="${extra}border-radius:16px;background:rgba(255,255,255,.1)"></div>`;
+const wBtn = (label, active) => `<div style="flex:1;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;background:${active ? '#FF9500' : 'rgba(255,255,255,.12)'};color:${active ? '#000' : '#fff'}">${label}</div>`;
+
+const s6 = `
+<div style="display:flex;flex-direction:column;height:874px;padding:74px 26px 40px;box-sizing:border-box;background:linear-gradient(160deg,#3b2a1a 0%,#151312 55%,#0a0a0a 100%);color:#fff;gap:26px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:26px">
+<div style="aspect-ratio:1;border-radius:36px;display:flex;flex-direction:column;justify-content:space-between;padding:18px;box-sizing:border-box;background:#1C1C1E;color:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:600;opacity:.7">${t.appName}</span>${dots(3, 5, 3, false)}</div>
+<div><div style="font-size:64px;font-weight:700;letter-spacing:-3px;line-height:.9;font-variant-numeric:tabular-nums;color:#FF9500">${secs}</div><div style="white-space:nowrap;font-size:13px;font-weight:600;margin-top:8px;opacity:.75">${t.tapStart}</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:18px 22px;padding:4px">${iconPh().repeat(4)}</div>
+</div>
+<div style="border-radius:36px;padding:18px 20px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;background:#1C1C1E;color:#fff">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div><div style="font-size:15px;font-weight:600">${t.appName}</div><div style="font-size:13px;opacity:.6;margin-top:2px">${t.setCap}</div></div>
+<div style="font-size:44px;font-weight:700;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums;color:#FF9500">${secs}</div>
+</div>
+<div style="display:flex;gap:8px">${wBtn(45)}${wBtn(secs, true)}${wBtn(120)}</div></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:4px 6px">${iconPh('aspect-ratio:1;').repeat(4)}</div>
+</div>`;
+
+// 워치 화면 3종 (07 장의 프레임 안, W1~W3 단독 컷 양쪽에서 쓴다)
+const watch1 = `
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600"><span style="color:#FF9500">${t.appName}</span><span>9:41</span></div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">${dots(3,6,4,false)}<span style="font-size:11px;opacity:.6">${t.setCap}</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:92px;font-weight:700;letter-spacing:-5px;line-height:.9;color:#FF9500;font-variant-numeric:tabular-nums">${secs}</div><div style="white-space:nowrap;font-size:13px;opacity:.5;margin-top:6px">${t.wTapStart}</div></div>
+<div style="display:flex;gap:6px"><div style="width:28px;display:flex;align-items:center;justify-content:center;color:#FF453A;font-size:22px"><svg width="22" height="22" viewBox="0 0 24 24" aria-label="End workout"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 8.5l7 7m0-7l-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div style="flex:1;height:38px;border-radius:19px;background:#1C1C1E;display:flex;align-items:center;justify-content:center;font-size:20px">−</div><div style="flex:1;height:38px;border-radius:19px;background:#1C1C1E;display:flex;align-items:center;justify-content:center;font-size:20px">+</div></div>`;
+
+const watch2 = `
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600"><span style="color:#FF9500">${lang === 'ko' ? '휴식' : 'Rest'}</span><span>9:41</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:8px"><div style="flex:1;height:3px;background:#1c1c1e"><div style="height:100%;background:#ff9500;width:${rem/secs*100}%"></div></div><span style="font-size:11px;opacity:.6">${t.setCap}</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:100px;font-weight:700;letter-spacing:-6px;line-height:.9;font-variant-numeric:tabular-nums;color:#FF9500">${rem}</div></div>
+<div style="display:flex;gap:6px"><div style="width:38px;height:38px;border-radius:19px;background:#1C1C1E;display:flex;align-items:center;justify-content:center;font-size:14px;color:#FF453A;flex:none">✕</div><div style="flex:1;height:38px;border-radius:19px;background:#1C1C1E;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600">+10</div><div style="white-space:nowrap;flex:1.3;height:38px;border-radius:19px;background:#FF9500;color:#000;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">${t.skip}</div></div>`;
+
+const watch3 = `
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600"><span>${t.restOver}</span><span>9:41</span></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><div style="font-size:12px;letter-spacing:3px">•••</div><span style="font-size:11px;opacity:.6">${t.setCap}</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:11px;font-weight:700;letter-spacing:2px;opacity:.6">${t.nextSetKicker}</div><div style="font-size:100px;font-weight:700;letter-spacing:-6px;line-height:.9;font-variant-numeric:tabular-nums;margin-top:4px">4</div></div>
+<div style="display:flex;gap:6px"><div style="width:56px;height:38px;border-radius:19px;background:#0002;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600">${t.changeTime}</div><div style="flex:1;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;white-space:nowrap;background:#000;color:#FF9500">${t.start}</div></div>`;
+
+const watchBody = (inner, colors, crown) => `<div style="width:230px;height:276px;border-radius:64px;position:relative;box-shadow:0 0 0 10px #1a1a1a,0 0 0 12px #333,0 20px 40px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;padding:30px 22px 26px;box-sizing:border-box;${colors}">${crown ? '<div style="position:absolute;right:-13px;top:70px;width:12px;height:40px;border-radius:4px;background:#333"></div>' : ''}${inner}</div>`;
+
+const s7 = `
+<article id="s7" class="shot">
+${headline(7)}
+<div style="position:absolute;left:170px;top:950px;transform:scale(2.55);transform-origin:0 0">${watchBody(watch2, 'background:#000;color:#fff', true)}</div>
+<div style="position:absolute;left:750px;top:1760px;transform:scale(1.8);transform-origin:0 0">${watchBody(watch3, 'background:#FF9500;color:#000')}</div>
+</article>`;
+
+const statRow = (label, value) => `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-bottom:1px solid #1C1C1E"><span style="font-size:15px;opacity:.55">${label}</span><span style="white-space:nowrap;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums">${value}</span></div>`;
+
+const s8 = `
+<div style="display:flex;flex-direction:column;height:874px;padding:66px 24px 40px;box-sizing:border-box;background:#000;color:#fff">
+<div style="font-size:15px;font-weight:600;color:#FF9500">${t.workoutDone}</div>
+${dots(8, 8, 6, false, 14)}
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+<div style="font-size:120px;font-weight:700;letter-spacing:-6px;line-height:.9;color:#FF9500;font-variant-numeric:tabular-nums">8</div>
+<div style="font-size:22px;font-weight:600;margin-top:10px">${t.setsDone}</div>
+<div style="display:flex;flex-direction:column;margin-top:36px;border-top:1px solid #1C1C1E">
+${statRow(t.totalRest, statRest)}${statRow(t.avgRest, statAvg)}${statRow(t.skippedRest, lang === 'ko' ? '1회' : '1')}
+</div></div>
+<div style="white-space:nowrap;height:64px;border-radius:32px;background:#FF9500;color:#000;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center">${t.again}</div>
+<div style="white-space:nowrap;height:48px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:rgba(255,255,255,.6);margin-top:6px">${t.finish}</div>
+</div>`;
+
+// 410×502 워치 단독 컷: 화면만, 프레임·카피 없음
+const watchShot = (id, inner, bg, color) => `
+<div id="${id}" style="width:410px;height:502px;position:relative;overflow:hidden;background:${bg};color:${color};flex:none">
+<div style="position:absolute;left:0;top:5px;transform:scale(1.783);transform-origin:0 0;width:230px;height:276px;display:flex;flex-direction:column;padding:30px 22px 26px;box-sizing:border-box">${inner}</div></div>`;
+
+const screens = {
+  s1: phoneShot('s1', t.h1, s1, { bg: '#FF9500', color: '#000', shadow: '.35' }),
+  s2: phoneShot('s2', t.h2, s2),
+  s3: phoneShot('s3', t.h3, s3),
+  s4: phoneShot('s4', t.h4, s4),
+  s5: islandShot,
+  s6: phoneShot('s6', t.h6, s6),
+  s7,
+  s8: phoneShot('s8', t.h8, s8, { bg: '#FF9500' }),
+  w1: watchShot('w1', watch1, '#000', '#fff'),
+  w2: watchShot('w2', watch2, '#000', '#fff'),
+  w3: watchShot('w3', watch3, '#FF9500', '#000'),
+};
+
+const names = ['resting','picker','last3','live-activity','dynamic-island','widgets','watch','summary'];
+const root = document.getElementById('root');
+if (only && only !== 'overview') {
+  if (!screens[only]) throw new Error(`Unknown screen: ${only}`);
+  document.body.classList.add('single');
+  root.innerHTML = screens[only];
+} else {
+  if (only === 'overview') document.body.classList.add('overview');
+  const title = lang === 'ko' ? '다음세트 · 앱스토어 스크린샷' : 'NextSet · App Store screenshots';
+  const note = lang === 'ko' ? 'T-63 디자인 검토용 목업 · 실제 기기 캡처 아님 · iPhone 1284 × 2778 / Watch 410 × 502' : 'T-63 design mockups · Not device captures · iPhone 1284 × 2778 / Watch 410 × 502';
+  const nav = ['ko','en'].map(l => `<a href="?lang=${l}&secs=${secs}" ${l === lang ? 'aria-current="page"' : ''}>${l === 'ko' ? '한국어' : 'English'}</a>`).join('') + [45,60,90].map(n => `<a href="?lang=${lang}&secs=${n}" ${n === secs ? 'aria-current="page"' : ''}>${n}s</a>`).join('');
+  root.insertAdjacentHTML('beforebegin', `<header class="review-header"><h1>${title}</h1><p>${note}</p><nav aria-label="Preview options">${nav}</nav></header>`);
+  root.innerHTML = Object.entries(screens).map(([id, content], index) => {
+    const watch = id.startsWith('w');
+    const label = watch ? `Watch ${id.slice(1)}` : `${String(index + 1).padStart(2,'0')} · ${names[index]}`;
+    return `<figure class="preview ${watch ? 'watch-preview' : ''}"><a href="?lang=${lang}&secs=${secs}&screen=${id}" aria-label="${label}"><div class="preview-canvas">${content}</div></a><figcaption>${label}</figcaption></figure>`;
+  }).join('');
+}
+document.fonts.ready.then(() => { document.documentElement.dataset.ready = 'true'; });
+</script>
+</body>
+</html>

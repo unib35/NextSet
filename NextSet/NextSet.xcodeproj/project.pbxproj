@@ -1,0 +1,1181 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9B8589603059C3000012A10C /* NextSetWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B8589603059C3000012A101 /* NextSetWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9B8589603059C3000012A20C /* NextSetWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9B8589603059C3000012A201 /* NextSetWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9B8589603059C3000012A30C /* NextSetWatchWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B8589603059C3000012A301 /* NextSetWatchWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B8589383059C2040012A109 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8589223059C1F80012A109 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B8589293059C1F80012A109;
+			remoteInfo = NextSet;
+		};
+		9B8589423059C2040012A109 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8589223059C1F80012A109 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B8589293059C1F80012A109;
+			remoteInfo = NextSet;
+		};
+		9B8589603059C3000012A10D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8589223059C1F80012A109 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B8589603059C3000012A104;
+			remoteInfo = NextSetWidgets;
+		};
+		9B8589603059C3000012A20D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8589223059C1F80012A109 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B8589603059C3000012A204;
+			remoteInfo = NextSetWatch;
+		};
+		9B8589603059C3000012A30D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8589223059C1F80012A109 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B8589603059C3000012A304;
+			remoteInfo = NextSetWatchWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9B8589603059C3000012A10B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9B8589603059C3000012A10C /* NextSetWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A20B /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				9B8589603059C3000012A20C /* NextSetWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A30B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9B8589603059C3000012A30C /* NextSetWatchWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9B85892A3059C1F80012A109 /* NextSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8589373059C2040012A109 /* NextSetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextSetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8589413059C2040012A109 /* NextSetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextSetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8589603059C3000012A101 /* NextSetWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NextSetWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8589603059C3000012A201 /* NextSetWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextSetWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8589603059C3000012A301 /* NextSetWatchWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NextSetWatchWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B8589603059C3000012A10F /* Exceptions for "NextSet" folder in "NextSet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B8589293059C1F80012A109 /* NextSet */;
+		};
+		9B8589603059C3000012A110 /* Exceptions for "NextSetWidgets" folder in "NextSetWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B8589603059C3000012A104 /* NextSetWidgets */;
+		};
+		9B8589603059C3000012A111 /* Exceptions for "NextSetWidgets" folder in "NextSet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				Info.plist,
+				NextSetWidgetsBundle.swift,
+				RestControl.swift,
+			);
+			target = 9B8589293059C1F80012A109 /* NextSet */;
+		};
+		9B8589603059C3000012A20F /* Exceptions for "Shared" folder in "NextSetWatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RestActivityAttributes.swift,
+				TimerIntents.swift,
+			);
+			target = 9B8589603059C3000012A204 /* NextSetWatch */;
+		};
+		9B8589603059C3000012A210 /* Exceptions for "NextSetWatch" folder in "NextSetWatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B8589603059C3000012A204 /* NextSetWatch */;
+		};
+		9B8589603059C3000012A30F /* Exceptions for "Shared" folder in "NextSetWatchWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RestActivityAttributes.swift,
+				TimerIntents.swift,
+			);
+			target = 9B8589603059C3000012A304 /* NextSetWatchWidgets */;
+		};
+		9B8589603059C3000012A310 /* Exceptions for "NextSetWidgets" folder in "NextSetWatchWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				HomeWidget.swift,
+				Info.plist,
+				NextSetWidgetsBundle.swift,
+				RestControl.swift,
+				RestLiveActivity.swift,
+			);
+			target = 9B8589603059C3000012A304 /* NextSetWatchWidgets */;
+		};
+		9B8589603059C3000012A311 /* Exceptions for "NextSetWatchWidgets" folder in "NextSetWatchWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B8589603059C3000012A304 /* NextSetWatchWidgets */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B85892C3059C1F80012A109 /* NextSet */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B8589603059C3000012A10F /* Exceptions for "NextSet" folder in "NextSet" target */,
+			);
+			path = NextSet;
+			sourceTree = "<group>";
+		};
+		9B85893A3059C2040012A109 /* NextSetTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NextSetTests;
+			sourceTree = "<group>";
+		};
+		9B8589443059C2040012A109 /* NextSetUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NextSetUITests;
+			sourceTree = "<group>";
+		};
+		9B8589603059C3000012A102 /* NextSetWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B8589603059C3000012A111 /* Exceptions for "NextSetWidgets" folder in "NextSet" target */,
+				9B8589603059C3000012A110 /* Exceptions for "NextSetWidgets" folder in "NextSetWidgets" target */,
+				9B8589603059C3000012A310 /* Exceptions for "NextSetWidgets" folder in "NextSetWatchWidgets" target */,
+			);
+			path = NextSetWidgets;
+			sourceTree = "<group>";
+		};
+		9B8589603059C3000012A103 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B8589603059C3000012A20F /* Exceptions for "Shared" folder in "NextSetWatch" target */,
+				9B8589603059C3000012A30F /* Exceptions for "Shared" folder in "NextSetWatchWidgets" target */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9B8589603059C3000012A202 /* NextSetWatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B8589603059C3000012A210 /* Exceptions for "NextSetWatch" folder in "NextSetWatch" target */,
+			);
+			path = NextSetWatch;
+			sourceTree = "<group>";
+		};
+		9B8589603059C3000012A203 /* Core */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9B8589603059C3000012A302 /* NextSetWatchWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B8589603059C3000012A311 /* Exceptions for "NextSetWatchWidgets" folder in "NextSetWatchWidgets" target */,
+			);
+			path = NextSetWatchWidgets;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B8589273059C1F80012A109 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589343059C2040012A109 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B85893E3059C2040012A109 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A106 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A206 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A306 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B59CDCA305BE04500F4C119 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9B8589603059C3000012A302 /* NextSetWatchWidgets */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		9B8589213059C1F80012A109 = {
+			isa = PBXGroup;
+			children = (
+				9B85892C3059C1F80012A109 /* NextSet */,
+				9B8589603059C3000012A203 /* Core */,
+				9B8589603059C3000012A103 /* Shared */,
+				9B8589603059C3000012A202 /* NextSetWatch */,
+				9B8589603059C3000012A102 /* NextSetWidgets */,
+				9B85893A3059C2040012A109 /* NextSetTests */,
+				9B8589443059C2040012A109 /* NextSetUITests */,
+				9B85892B3059C1F80012A109 /* Products */,
+				9B59CDCA305BE04500F4C119 /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		9B85892B3059C1F80012A109 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B85892A3059C1F80012A109 /* NextSet.app */,
+				9B8589373059C2040012A109 /* NextSetTests.xctest */,
+				9B8589413059C2040012A109 /* NextSetUITests.xctest */,
+				9B8589603059C3000012A101 /* NextSetWidgets.appex */,
+				9B8589603059C3000012A201 /* NextSetWatch.app */,
+				9B8589603059C3000012A301 /* NextSetWatchWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9B8589293059C1F80012A109 /* NextSet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B85894B3059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSet" */;
+			buildPhases = (
+				9B8589263059C1F80012A109 /* Sources */,
+				9B8589273059C1F80012A109 /* Frameworks */,
+				9B8589283059C1F80012A109 /* Resources */,
+				9B8589603059C3000012A10B /* Embed Foundation Extensions */,
+				9B8589603059C3000012A20B /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B8589603059C3000012A10E /* PBXTargetDependency */,
+				9B8589603059C3000012A20E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B85892C3059C1F80012A109 /* NextSet */,
+				9B8589603059C3000012A102 /* NextSetWidgets */,
+				9B8589603059C3000012A103 /* Shared */,
+				9B8589603059C3000012A203 /* Core */,
+			);
+			name = NextSet;
+			packageProductDependencies = (
+			);
+			productName = NextSet;
+			productReference = 9B85892A3059C1F80012A109 /* NextSet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B8589363059C2040012A109 /* NextSetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B85894E3059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSetTests" */;
+			buildPhases = (
+				9B8589333059C2040012A109 /* Sources */,
+				9B8589343059C2040012A109 /* Frameworks */,
+				9B8589353059C2040012A109 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B8589393059C2040012A109 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B85893A3059C2040012A109 /* NextSetTests */,
+			);
+			name = NextSetTests;
+			packageProductDependencies = (
+			);
+			productName = NextSetTests;
+			productReference = 9B8589373059C2040012A109 /* NextSetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9B8589403059C2040012A109 /* NextSetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B8589513059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSetUITests" */;
+			buildPhases = (
+				9B85893D3059C2040012A109 /* Sources */,
+				9B85893E3059C2040012A109 /* Frameworks */,
+				9B85893F3059C2040012A109 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B8589433059C2040012A109 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B8589443059C2040012A109 /* NextSetUITests */,
+			);
+			name = NextSetUITests;
+			packageProductDependencies = (
+			);
+			productName = NextSetUITests;
+			productReference = 9B8589413059C2040012A109 /* NextSetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		9B8589603059C3000012A104 /* NextSetWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B8589603059C3000012A108 /* Build configuration list for PBXNativeTarget "NextSetWidgets" */;
+			buildPhases = (
+				9B8589603059C3000012A105 /* Sources */,
+				9B8589603059C3000012A106 /* Frameworks */,
+				9B8589603059C3000012A107 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B8589603059C3000012A102 /* NextSetWidgets */,
+				9B8589603059C3000012A103 /* Shared */,
+			);
+			name = NextSetWidgets;
+			packageProductDependencies = (
+			);
+			productName = NextSetWidgets;
+			productReference = 9B8589603059C3000012A101 /* NextSetWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		9B8589603059C3000012A204 /* NextSetWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B8589603059C3000012A208 /* Build configuration list for PBXNativeTarget "NextSetWatch" */;
+			buildPhases = (
+				9B8589603059C3000012A205 /* Sources */,
+				9B8589603059C3000012A206 /* Frameworks */,
+				9B8589603059C3000012A207 /* Resources */,
+				9B8589603059C3000012A30B /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B8589603059C3000012A30E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B8589603059C3000012A103 /* Shared */,
+				9B8589603059C3000012A202 /* NextSetWatch */,
+				9B8589603059C3000012A203 /* Core */,
+			);
+			name = NextSetWatch;
+			packageProductDependencies = (
+			);
+			productName = NextSetWatch;
+			productReference = 9B8589603059C3000012A201 /* NextSetWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B8589603059C3000012A304 /* NextSetWatchWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B8589603059C3000012A308 /* Build configuration list for PBXNativeTarget "NextSetWatchWidgets" */;
+			buildPhases = (
+				9B8589603059C3000012A305 /* Sources */,
+				9B8589603059C3000012A306 /* Frameworks */,
+				9B8589603059C3000012A307 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B8589603059C3000012A102 /* NextSetWidgets */,
+				9B8589603059C3000012A103 /* Shared */,
+				9B8589603059C3000012A302 /* NextSetWatchWidgets */,
+			);
+			name = NextSetWatchWidgets;
+			packageProductDependencies = (
+			);
+			productName = NextSetWatchWidgets;
+			productReference = 9B8589603059C3000012A301 /* NextSetWatchWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B8589223059C1F80012A109 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					9B8589293059C1F80012A109 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					9B8589363059C2040012A109 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 9B8589293059C1F80012A109;
+					};
+					9B8589403059C2040012A109 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 9B8589293059C1F80012A109;
+					};
+					9B8589603059C3000012A104 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					9B8589603059C3000012A204 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					9B8589603059C3000012A304 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+				};
+			};
+			buildConfigurationList = 9B8589253059C1F80012A109 /* Build configuration list for PBXProject "NextSet" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ko,
+				Base,
+			);
+			mainGroup = 9B8589213059C1F80012A109;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9B85892B3059C1F80012A109 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B8589293059C1F80012A109 /* NextSet */,
+				9B8589363059C2040012A109 /* NextSetTests */,
+				9B8589403059C2040012A109 /* NextSetUITests */,
+				9B8589603059C3000012A104 /* NextSetWidgets */,
+				9B8589603059C3000012A204 /* NextSetWatch */,
+				9B8589603059C3000012A304 /* NextSetWatchWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B8589283059C1F80012A109 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589353059C2040012A109 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B85893F3059C2040012A109 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A107 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A307 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B8589263059C1F80012A109 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589333059C2040012A109 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B85893D3059C2040012A109 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A105 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A205 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8589603059C3000012A305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9B8589393059C2040012A109 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B8589293059C1F80012A109 /* NextSet */;
+			targetProxy = 9B8589383059C2040012A109 /* PBXContainerItemProxy */;
+		};
+		9B8589433059C2040012A109 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B8589293059C1F80012A109 /* NextSet */;
+			targetProxy = 9B8589423059C2040012A109 /* PBXContainerItemProxy */;
+		};
+		9B8589603059C3000012A10E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B8589603059C3000012A104 /* NextSetWidgets */;
+			targetProxy = 9B8589603059C3000012A10D /* PBXContainerItemProxy */;
+		};
+		9B8589603059C3000012A20E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B8589603059C3000012A204 /* NextSetWatch */;
+			targetProxy = 9B8589603059C3000012A20D /* PBXContainerItemProxy */;
+		};
+		9B8589603059C3000012A30E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B8589603059C3000012A304 /* NextSetWatchWidgets */;
+			targetProxy = 9B8589603059C3000012A30D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9B8589493059C2040012A109 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9B85894A3059C2040012A109 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B85894C3059C2040012A109 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NextSet/NextSet.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSet/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B85894D3059C2040012A109 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NextSet/NextSet.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSet/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9B85894F3059C2040012A109 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NextSet.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NextSet";
+			};
+			name = Debug;
+		};
+		9B8589503059C2040012A109 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NextSet.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NextSet";
+			};
+			name = Release;
+		};
+		9B8589523059C2040012A109 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NextSet;
+			};
+			name = Debug;
+		};
+		9B8589533059C2040012A109 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NextSet;
+			};
+			name = Release;
+		};
+		9B8589603059C3000012A109 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NextSetWidgets/NextSetWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.NextSetWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B8589603059C3000012A10A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NextSetWidgets/NextSetWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.NextSetWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9B8589603059C3000012A209 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NextSetWatch/NextSetWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kr.co.lee.NextSet;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		9B8589603059C3000012A20A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NextSetWatch/NextSetWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kr.co.lee.NextSet;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		9B8589603059C3000012A309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NextSetWatchWidgets/NextSetWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.watchkitapp.NextSetWatchWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		9B8589603059C3000012A30A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NextSetWatchWidgets/NextSetWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMNS6W2AA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NextSetWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다음세트";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.lee.NextSet.watchkitapp.NextSetWatchWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B8589253059C1F80012A109 /* Build configuration list for PBXProject "NextSet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B8589493059C2040012A109 /* Debug */,
+				9B85894A3059C2040012A109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B85894B3059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B85894C3059C2040012A109 /* Debug */,
+				9B85894D3059C2040012A109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B85894E3059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B85894F3059C2040012A109 /* Debug */,
+				9B8589503059C2040012A109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B8589513059C2040012A109 /* Build configuration list for PBXNativeTarget "NextSetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B8589523059C2040012A109 /* Debug */,
+				9B8589533059C2040012A109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B8589603059C3000012A108 /* Build configuration list for PBXNativeTarget "NextSetWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B8589603059C3000012A109 /* Debug */,
+				9B8589603059C3000012A10A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B8589603059C3000012A208 /* Build configuration list for PBXNativeTarget "NextSetWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B8589603059C3000012A209 /* Debug */,
+				9B8589603059C3000012A20A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B8589603059C3000012A308 /* Build configuration list for PBXNativeTarget "NextSetWatchWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B8589603059C3000012A309 /* Debug */,
+				9B8589603059C3000012A30A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B8589223059C1F80012A109 /* Project object */;
+}

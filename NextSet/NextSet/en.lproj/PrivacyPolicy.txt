@@ -1,0 +1,46 @@
+NextSet is a workout rest timer that you can use **without creating an account**. Timer and workout records are stored on your device and are not collected by the developer.
+
+## 1. Information stored on your device
+
+The app stores the following information to provide its features.
+
+- **Settings:** Default rest duration, alert settings, and display settings
+- **Timer state:** Information about your current timer
+- **Recent workouts:** Summaries of your last 30 workouts — start and end times, set counts, rest counts and total rest time, and skipped rests
+- **App usage state:** Which first-use tips you have seen, the number of saved workouts, identifiers of deleted records, and change timestamps used for device synchronization
+
+## 2. Widgets and Apple Watch
+
+The app and its widgets share timer information through the same App Group storage.
+
+When you use a paired Apple Watch, **timer settings, state, and workout summaries** are transferred between your iPhone and Watch using Apple's device connectivity features.
+
+## 3. Information sent to the developer
+
+- The current app has no feature that sends information to a developer server.
+- The app contains no advertising, tracking, or third-party analytics SDKs.
+- The developer does not collect your timer or workout records.
+- The app does not access HealthKit health data, location, contacts, the camera, or the microphone.
+
+## 4. Notification permission
+
+The app requests notification permission to let you know when rest ends. Notifications are **scheduled on your device**.
+
+You can change notification permission at any time in your device's **system settings**.
+
+## 5. Keeping and deleting records
+
+- **Retention:** Summaries of your last 30 workouts are stored on your device.
+- **How to delete:** You can delete records in **Recent workouts**.
+- **Per-device deletion:** Deletion applies only to that device. Records on another paired device must be deleted separately on that device.
+- **App deletion and backups:** Deleting the app may remove its local data. Device backup and restore follow your Apple settings and Apple's service policies.
+
+## 6. Policy changes
+
+This notice will be updated when features or data handling change.
+
+## 7. Contact
+
+For app support or privacy questions, please email:
+
+[jm.jongminlee@gmail.com](mailto:jm.jongminlee@gmail.com)

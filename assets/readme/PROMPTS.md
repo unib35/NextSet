@@ -1,5 +1,11 @@
 # README artwork
 
+## Korean localization
+
+Built-in image generation edits of the English hero and social preview, saved separately under `ko/`.
+
+Use case: text-localization. Create a Korean localized version of this NextSet brand image. Preserve the layout, black backdrop, orange sculptural 30, lighting, orange #FF9500 palette and original aspect ratio. Replace ALL English text with these exact Korean strings: small orange heading "운동 휴식 타이머"; large bold white brand title "다음세트"; white tagline "잠깐 쉬고, 다시 한 세트." Use exceptionally crisp professionally typeset Korean sans-serif, clear correct Hangul glyphs with generous spacing, no broken or overlapping strokes, no texture in letters. Keep heading, title and tagline in their respective original positions. Keep 30 unchanged. No English remaining, no extra copy or objects.
+
 ## Final title correction (both hero and social preview)
 
 Built-in image generation edits using each respective image as the reference, 2026-09-22.

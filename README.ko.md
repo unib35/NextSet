@@ -1,7 +1,7 @@
 <p align="center"><a href="README.md">English</a> · <strong>한국어</strong></p>
 
 <p align="center">
-  <img src="assets/readme/hero.png" width="100%" alt="NextSet — 주황색 30을 모티프로 한 운동 휴식 타이머 배너">
+  <img src="assets/readme/ko/hero.png" width="100%" alt="NextSet — 주황색 30을 모티프로 한 운동 휴식 타이머 배너">
 </p>
 
 <h1 align="center">다음세트 · NextSet</h1>
@@ -32,13 +32,13 @@
     <th width="33%">03 · 운동 마무리</th>
   </tr>
   <tr>
-    <td><img src="assets/readme/setup.png" width="280" alt="60초 휴식 프리셋과 세트 완료 후 휴식 시작 버튼"></td>
-    <td><img src="assets/readme/rest.png" width="280" alt="59초 남은 휴식 타이머와 휴식 시간 조절 버튼"></td>
-    <td><img src="assets/readme/summary.png" width="280" alt="완료한 세트, 총 휴식 시간, 건너뛴 휴식을 보여주는 운동 요약"></td>
+    <td><img src="assets/readme/ko/setup.png" width="280" alt="5초로 설정된 휴식 시간과 첫 세트 완료 후 휴식 시작 버튼"></td>
+    <td><img src="assets/readme/ko/rest.png" width="280" alt="58초 남은 휴식 타이머와 휴식 시간 조절 버튼"></td>
+    <td><img src="assets/readme/ko/summary.png" width="280" alt="완료한 세트, 총 휴식 시간, 건너뛴 휴식을 보여주는 운동 요약"></td>
   </tr>
 </table>
 
-<sub>예시 운동 데이터로 촬영한 영어판 시뮬레이터 화면입니다. 앱은 한국어도 지원하며, 기기와 앱 버전에 따라 화면이 달라질 수 있습니다.</sub>
+<sub>예시 운동 데이터로 촬영한 한국어 시뮬레이터 화면입니다. 기기와 앱 버전에 따라 화면이 달라질 수 있습니다.</sub>
 
 ## 세트 사이의 휴식을 위해
 
@@ -50,7 +50,7 @@
 | **운동 기록 확인** | 기기에 저장된 최근 운동 요약 확인. |
 
 <p align="center">
-  <img src="assets/readme/watch.png" width="180" alt="97초 남은 Apple Watch 휴식 타이머와 10초 추가·건너뛰기 버튼"><br>
+  <img src="assets/readme/ko/watch.png" width="180" alt="Apple Watch의 한국어 휴식 설정 화면과 시간 조절 버튼"><br>
   <sub>세트 사이, 손목에서 간편하게 확인하세요.</sub>
 </p>
 

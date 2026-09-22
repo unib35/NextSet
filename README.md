@@ -1,14 +1,61 @@
-# NextSet · 다음세트
+<p align="center"><strong>English</strong> · <a href="README.ko.md">한국어</a></p>
 
-A workout rest timer for iPhone, iPad, and Apple Watch, built with SwiftUI.
+<p align="center">
+  <img src="assets/readme/hero.png" width="100%" alt="NextSet — Rest. Reset. Go again. 주황색 30을 모티프로 한 운동 휴식 타이머 배너">
+</p>
 
-- Set-rest and countdown modes, presets, pause/resume, and rest adjustment
-- Recent workout summaries stored on your device
-- Home and Lock Screen widgets, Live Activities, and Control Center controls
-- Apple Watch companion with local rest-end notifications
-- Korean and English
+<h1 align="center">NextSet · 다음세트</h1>
 
-No account, ads, in-app purchases, or developer-hosted workout storage.
+<p align="center">
+  <strong>운동에 집중하고, 휴식은 다음세트에 맡기세요.</strong><br>
+  A workout rest timer for iPhone, iPad, and Apple Watch.<br>
+  Built with SwiftUI · 한국어 / English
+</p>
+
+<p align="center">
+  <a href="#a-look-inside">Screenshots</a> ·
+  <a href="#build">Build</a> ·
+  <a href="https://unib35.github.io/NextSet/ko/support.html">지원</a> ·
+  <a href="https://unib35.github.io/NextSet/en/support.html">Support</a> ·
+  <a href="https://unib35.github.io/NextSet/en/privacy.html">Privacy</a>
+</p>
+
+---
+
+## A look inside
+
+Choose your rest. Keep your rhythm. See what you finished.
+
+<table>
+  <tr>
+    <th width="33%">01 · Set your rest</th>
+    <th width="33%">02 · Stay focused</th>
+    <th width="33%">03 · Wrap it up</th>
+  </tr>
+  <tr>
+    <td><img src="assets/readme/setup.png" width="280" alt="Rest setup with a 60-second preset and Set done → Rest button"></td>
+    <td><img src="assets/readme/rest.png" width="280" alt="Active rest timer with 59 seconds remaining and rest adjustment controls"></td>
+    <td><img src="assets/readme/summary.png" width="280" alt="Workout summary showing completed sets, total rest, and skipped rests"></td>
+  </tr>
+</table>
+
+<sub>Actual simulator captures with sample workout data. Screens may vary by device and app version.</sub>
+
+## Made for the time between sets
+
+| | What you can do |
+| :--- | :--- |
+| **Your pace** | Set-rest and countdown modes, quick presets, pause/resume, and rest adjustment. |
+| **A glance away** | Home and Lock Screen widgets, Live Activities, and Control Center controls. |
+| **On your wrist** | Apple Watch companion with rest controls and local rest-end notifications. |
+| **Your workout history** | Review recent workout summaries stored on your device. |
+
+<p align="center">
+  <img src="assets/readme/watch.png" width="180" alt="Apple Watch rest timer with 97 seconds remaining, add 10 seconds, and skip controls"><br>
+  <sub>A quick check between sets, right on your wrist.</sub>
+</p>
+
+**No account. No ads. No in-app purchases.** Workout summaries stay on your device, with no developer-hosted workout storage.
 
 ## Build
 

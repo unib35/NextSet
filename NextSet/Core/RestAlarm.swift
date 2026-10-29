@@ -150,7 +150,9 @@ extension RestAlarm.Backend {
                 let configuration = AlarmManager.AlarmConfiguration(
                     countdownDuration: snooze == nil ? nil : .init(preAlert: nil, postAlert: RestAlarm.snoozeSeconds),
                     schedule: .fixed(request.fireDate),
-                    attributes: attributes)
+                    attributes: attributes,
+                    stopIntent: RefreshRestIntent(),       // 정지 → 앱이 깨어나 Live Activity 를 "휴식 끝"으로
+                    secondaryIntent: RefreshRestIntent())
                 _ = try await manager.schedule(id: id, configuration: configuration)
             },
             cancel: { id in try? manager.cancel(id: id) })

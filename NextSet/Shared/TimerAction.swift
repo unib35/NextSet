@@ -11,4 +11,5 @@ enum TimerAction: Equatable {
     case controlToggle  // 제어 센터 토글: 대기 → 시작, 실행 중 → 일시정지, 일시정지 → 재개
     case setControlRunning(Bool)  // 제어 센터가 요청한 상태를 멱등 적용
     case restartRest    // 이 휴식을 처음부터 다시 (워치 4e 메뉴)
+    case refresh        // 상태만 다시 계산 — 끝난 휴식을 "휴식 끝"으로 넘기고 Live Activity·위젯을 갱신 (iOS 26 알람 버튼)
 }

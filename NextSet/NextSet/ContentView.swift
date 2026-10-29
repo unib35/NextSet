@@ -57,6 +57,8 @@ struct ContentView: View {
         .preferredColorScheme(.dark)
         .onChange(of: scenePhase, initial: true) { _, phase in
             timer.scenePhaseChanged(isActive: phase == .active)
+            BackgroundGrace.shared.sceneChanged(isActive: phase == .active,
+                                                restEndsAt: timer.session.phase == .running ? timer.session.endDate : nil)
         }
         .onOpenURL { url in
             timer.handleURL(url)  // 3e 위젯 탭 → nextset://start

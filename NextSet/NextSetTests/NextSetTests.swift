@@ -240,6 +240,20 @@ struct RestTimerTests {
         #expect(!timer.isFinalCountdown)
     }
 
+    /// T-93: iOS 26 알람의 정지·+30 버튼(RefreshRestIntent)이 앱을 깨우면, 잠든 사이 끝난 휴식을 바로 "휴식 끝"으로 넘긴다.
+    @Test func refreshActionFinishesRestThatEndedWhileAsleep() {
+        let clock = Clock()
+        let timer = makeTimer(clock)
+        timer.start()
+        clock.now += 75  // 앱이 잠든 사이 60초 휴식이 끝났다
+        #expect(timer.session.phase == .running)
+        timer.perform(.refresh)
+        #expect(timer.session.phase == .done)
+        #expect(timer.session.completedSets == 1)
+        timer.perform(.refresh)  // 다시 눌러도 그대로
+        #expect(timer.session.completedSets == 1)
+    }
+
     @Test func settingsAdjustments() {
         let timer = makeTimer(Clock())
         timer.adjustGoal(by: 1)

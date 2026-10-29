@@ -30,6 +30,17 @@ struct StartRestIntent: LiveActivityIntent {
     }
 }
 
+/// iOS 26 휴식 끝 알람의 정지·"+30초" 버튼. 앱을 깨워 0:00 에 멈춰 있던 Live Activity 를 바로 "휴식 끝"으로 바꾼다.
+/// 앱이 뒤에서 잠든 사이 휴식이 끝나면 시스템이 만료를 늦게 처리해 0:00 이 한동안 남는다(T-49·T-93).
+struct RefreshRestIntent: LiveActivityIntent {
+    static let title: LocalizedStringResource = "Update rest status"
+    static let isDiscoverable = false
+    func perform() async throws -> some IntentResult {
+        try await TimerIntentRunner.perform(.refresh)
+        return .result()
+    }
+}
+
 struct TogglePauseIntent: LiveActivityIntent {
     static let title: LocalizedStringResource = "Pause / Resume"
     func perform() async throws -> some IntentResult {

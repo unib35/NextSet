@@ -322,6 +322,7 @@ final class RestTimer {
         case .togglePause: togglePause()
         case .add(let seconds): adjustRemaining(by: seconds)
         case .restartRest: restartRest()
+        case .refresh: break  // 위의 tick() 이 끝난 휴식을 넘기고, 세션이 바뀌면 Live Activity·위젯이 따라온다
         case .skip: skip()
         case .endWorkout: endWorkout()
         case .startOver: startOver()

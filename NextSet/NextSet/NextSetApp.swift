@@ -56,7 +56,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
     nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter,
                                             willPresent notification: UNNotification,
                                             withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        Task { @MainActor in completionHandler([]) }
+        let isWorkoutReminder = notification.request.identifier == RestNotifications.workoutReminderIdentifier
+        Task { @MainActor in completionHandler(isWorkoutReminder ? [.banner, .sound] : []) }
     }
 
     nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter,

@@ -22,7 +22,7 @@ struct AdaptiveTimerScreen<Header: View, Display: View, Controls: View>: View {
         GeometryReader { geometry in
             let width = min(geometry.size.width, 1040) - 48
             let sideBySide = !typeSize.isAccessibilitySize && width >= 560
-            let numberSize = min(220, max(72, geometry.size.height * (sideBySide ? 0.38 : 0.28)))
+            let numberSize = min(168, max(72, geometry.size.height * (sideBySide ? 0.38 : 0.28)))
             ScrollView {
                 TimerPanelLayout(sideBySide: sideBySide, minimumHeight: max(0, geometry.size.height - 12)) {
                     header()

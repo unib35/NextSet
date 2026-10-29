@@ -10,5 +10,8 @@ struct NextSetWidgetsBundle: WidgetBundle {
         HomeWidget()
         RestLiveActivity()
         RestControl()
+        if #available(iOS 26.0, *) {
+            RestAlarmLiveActivity()  // 휴식 끝 알람의 "+30초 더 쉬기" 카운트다운
+        }
     }
 }

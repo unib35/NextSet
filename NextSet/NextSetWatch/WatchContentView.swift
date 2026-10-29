@@ -107,18 +107,29 @@ struct WatchBigNumber: View {
 
 /// 세트 점 (폰 `SetDots`와 같은 뜻).
 struct WatchSetDots: View {
-    let dots: [SetDot]
+    let dots: SetProgress
     var onOrange = false
 
     var body: some View {
-        HStack(spacing: 4) {
-            ForEach(dots.indices, id: \.self) { index in
-                Circle()
-                    .fill(color(dots[index]))
-                    .frame(width: 6, height: 6)
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 4) {
+                    ForEach(dots.indices, id: \.self) { index in
+                        Circle()
+                            .fill(color(dots[index]))
+                            .frame(width: 6, height: 6)
+                            .id(index)
+                    }
+                }
+            }
+            .scrollIndicators(.hidden)
+            .onChange(of: dots, initial: true) { _, progress in
+                proxy.scrollTo(progress.focusIndex, anchor: .trailing)
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: dots)
+        .frame(maxWidth: CGFloat(dots.count) * (6 + 4) - 4, alignment: .leading)
+        .frame(height: 28)
+        .accessibilityHidden(true) // 인접 세트 캡션이 정확한 진행 수를 읽는다.
     }
 
     private func color(_ dot: SetDot) -> Color {

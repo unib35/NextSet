@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """소리 파일 생성 (T-01 → 2026-09-18 변경).
 
-    python3 tools/make_sounds.py
+    python3 tools/audio/make_sounds.py
 
 - `countdown-beep.caf` : 마지막 3초 매초 울리는 작은 beep (합성)
-- `rest-end.caf`       : 휴식 끝 벨. 사용자가 넣은 `tools/sounds/boxing-opening-bell.mp3`를 caf(mono, 16bit)로 변환
+- `rest-end.caf`       : 휴식 끝 벨. 사용자가 넣은 `assets/sounds/boxing-opening-bell.mp3`를 caf(mono, 16bit)로 변환
 
 표준 라이브러리 + macOS `afconvert` 만 쓴다. 알림(UNNotificationSound)에 쓰려면 30초 미만 aiff/wav/caf 여야 한다.
 """
@@ -15,8 +15,8 @@ import wave
 from pathlib import Path
 
 RATE = 44100
-ROOT = Path(__file__).resolve().parent
-OUT = ROOT.parent / "NextSet" / "NextSet" / "Sounds"
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / "NextSet" / "NextSet" / "Sounds"
 
 
 def beep(freq: float, length: float, gain: float) -> list[float]:
@@ -48,6 +48,6 @@ def write_wav_as_caf(name: str, samples: list[float]) -> None:
 write_wav_as_caf("countdown-beep", beep(1000.0, 0.09, 0.35))
 
 # 휴식 끝 벨 — mp3 → caf
-src = ROOT / "sounds" / "boxing-opening-bell.mp3"
+src = ROOT / "assets" / "sounds" / "boxing-opening-bell.mp3"
 subprocess.run(["afconvert", "-f", "caff", "-d", "LEI16", "-c", "1", str(src), str(OUT / "rest-end.caf")], check=True)
 print("rest-end.caf: from", src.name)

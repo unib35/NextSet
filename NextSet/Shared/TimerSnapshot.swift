@@ -38,29 +38,42 @@ struct TimerSnapshot {
         }
     }
 
-    /// 점은 전체 세트 수가 아니라 현재 세트 주변의 최대 5개만 표시한다.
-    /// Watch·소형 위젯·Dynamic Island에서도 폭이 일정하게 제한된다.
-    static let maxVisibleDots = 5
+    /// 끝낸 세트 수. 휴식은 세트를 끝낸 뒤 시작하므로 휴식 중이면 방금 끝낸 세트까지 센다
+    /// (첫 휴식 중에도 "세트 시작 전"이 아니라 "세트 1 완료" — 2026-10 시안).
+    var finishedSets: Int { session.completedSets + (isActive && settings.mode == .sets ? 1 : 0) }
 
-    var dots: [SetDot] {
-        let sets = session.completedSets
+    /// 전체 세트에 일대일 대응한다. 실제 배열을 만들지 않아 무제한 세트도 메모리가 일정하다.
+    /// 카운트다운 모드와 0세트에서는 점을 그리지 않는다(2026-10 시안).
+    var dots: SetProgress {
         let finished = session.phase == .finished
-        let total = settings.mode == .single ? 1
+        let done = finishedSets
+        let total = settings.mode == .single ? 0
             : hasGoal ? settings.goalSets
-            : finished ? max(1, sets) : sets + 1
-        let count = min(Self.maxVisibleDots, total)
-        // 목표가 있으면 현재 위치를 가운데 두고, 양 끝에서는 범위 안으로 이동한다.
-        // 무제한 모드는 마지막 점이 현재 위치가 되어 100세트 이후에도 사라지지 않는다.
-        let start = min(max(0, sets - count / 2), total - count)
-        return (start..<(start + count)).map { index in
-            if index < sets || finished { return .past }
-            return index == sets ? .current : .upcoming
-        }
+            : finished ? done
+            : done == 0 ? 0 : done + 1
+        return SetProgress(total: total, completed: done, finished: finished)
     }
 
     var setCaption: String {
         if settings.mode == .single { return String(localized: "Single") }
-        if hasGoal { return String(localized: "Sets \(session.completedSets)/\(settings.goalSets)") }
-        return session.completedSets == 0 ? String(localized: "No sets yet") : String(localized: "Set \(session.completedSets) complete")
+        let done = finishedSets
+        if hasGoal { return String(localized: "Sets \(done)/\(settings.goalSets)") }
+        return done == 0 ? String(localized: "No sets yet") : String(localized: "Set \(done) complete")
+    }
+}
+
+/// 점의 인덱스는 운동 내 세트 번호(0부터). 스크롤 중에도 같은 세트의 identity를 유지한다.
+struct SetProgress: RandomAccessCollection, Equatable {
+    let total: Int
+    let completed: Int
+    let finished: Bool
+    var startIndex: Int { 0 }
+    var endIndex: Int { total }
+    var focusIndex: Int { Swift.max(0, Swift.min(completed, total - 1)) }
+    var pastCount: Int { finished ? total : Swift.min(completed, total) }
+    subscript(index: Int) -> SetDot {
+        precondition(indices.contains(index))
+        if finished || index < completed { return .past }
+        return index == completed ? .current : .upcoming
     }
 }

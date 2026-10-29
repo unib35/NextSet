@@ -41,6 +41,24 @@
           }
         }
       }
+    },
+    "NSAlarmKitUsageDescription" : {
+      "comment" : "iOS 26 AlarmKit 권한 요청 문구(시안 A1)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your rest end will ring as an alarm, even in Silent mode or a Focus."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식이 끝나면 무음 모드나 집중 모드에서도 소리로 알려드릴게요."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

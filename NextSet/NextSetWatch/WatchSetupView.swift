@@ -27,10 +27,11 @@ struct WatchSetupView: View {
             HStack(spacing: 6) {
                 if timer.canEndWorkout {
                     Button { confirmsEnd = true } label: {
-                        Image(systemName: "xmark.circle")
-                            .font(.title3)
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .bold))
                             .foregroundStyle(Color.danger)
                             .frame(width: WatchMetrics.pillHeight, height: WatchMetrics.pillHeight)
+                            .background(Color.card, in: Circle())
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(String(localized: "End workout"))

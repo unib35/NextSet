@@ -31,7 +31,7 @@ extension TimerSession {
               (0...TimerValidation.maxCount).contains(completedSets),
               (0...TimerValidation.maxCount).contains(skippedCount),
               restCount.map({ (0...TimerValidation.maxCount).contains($0) }) ?? true,
-              [startedAt, endDate, doneAt].compactMap({ $0 }).allSatisfy({
+              [startedAt, endDate, doneAt, lastSetProgressAt].compactMap({ $0 }).allSatisfy({
                   $0.timeIntervalSince1970.isFinite && $0 >= .distantPast && $0 <= .distantFuture
               }) else { return TimerSession() }
         if phase == .running && (endDate == nil || restDuration < 1) { return TimerSession() }

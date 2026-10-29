@@ -64,7 +64,7 @@ private struct StatRow: View {
         HStack(alignment: .firstTextBaseline) {
             Text(label)
                 .font(.subheadline)
-                .opacity(0.7)
+                .opacity(0.6)
             Spacer()
             Text(value)
                 .font(.system(size: 28, weight: .semibold))

@@ -43,6 +43,9 @@ final class NextSetUITests: XCTestCase {
         XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
 
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        // 새 시뮬레이터에서는 첫 휴식 시작 때 알림 권한 팝업이 뜬다. 섬 버튼을 가리므로 먼저 허용한다.
+        let allow = springboard.alerts.buttons.matching(NSPredicate(format: "label IN {'허용', 'Allow'}")).firstMatch
+        if allow.waitForExistence(timeout: 5) { allow.tap(); sleep(1) }
         XCUIDevice.shared.press(.home)
         sleep(3)
         capture(springboard, "la-01-island-compact")
@@ -97,10 +100,7 @@ final class NextSetUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 10))
         start.tap()
         XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
-        app.buttons["운동 끝내기"].firstMatch.tap()
-        let confirm = app.buttons["기록 저장 후 종료"]
-        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
-        confirm.tap()
+        holdToEnd(app)
         XCTAssertTrue(start.waitForExistence(timeout: 10))
         capture(app, "toast-top")
 
@@ -156,10 +156,8 @@ final class NextSetUITests: XCTestCase {
         app.launch()
         let doneCTA = app.buttons["바로 휴식 시작"]
         XCTAssertTrue(doneCTA.waitForExistence(timeout: 20))
-        app.buttons["운동 끝내기"].firstMatch.tap()
-        let confirm = app.buttons["기록 저장 후 종료"]
-        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
-        confirm.tap()
+        app.buttons["시간 바꾸기"].tap()  // 3c 에는 종료가 없다(2026-10 시안) → 3a 의 종료
+        holdToEnd(app)
         let again = app.buttons["한 번 더"]
         XCTAssertTrue(again.waitForExistence(timeout: 10), "세트가 있으면 완료 요약이 떠야 한다")
         capture(app, "summary-manual-end")
@@ -174,8 +172,8 @@ final class NextSetUITests: XCTestCase {
         app.launchArguments = ["-timer.reset", "-sync.off", "-timer.start", "5"]
         app.launch()
         XCTAssertTrue(app.buttons["바로 휴식 시작"].waitForExistence(timeout: 20))
-        app.buttons["운동 끝내기"].firstMatch.tap()
-        app.buttons["기록 저장 후 종료"].tap()
+        app.buttons["시간 바꾸기"].tap()
+        holdToEnd(app)
         XCTAssertTrue(app.buttons["끝내기"].waitForExistence(timeout: 10))
         app.buttons["끝내기"].tap()
         let history = app.buttons["최근 운동"].firstMatch
@@ -205,9 +203,8 @@ final class NextSetUITests: XCTestCase {
 
         func endWorkout() {
             XCTAssertTrue(app.buttons["바로 휴식 시작"].waitForExistence(timeout: 20))
-            app.buttons["운동 끝내기"].firstMatch.tap()
-            XCTAssertTrue(app.buttons["기록 저장 후 종료"].waitForExistence(timeout: 5))
-            app.buttons["기록 저장 후 종료"].tap()
+            app.buttons["시간 바꾸기"].tap()
+            holdToEnd(app)
             XCTAssertTrue(app.buttons["끝내기"].waitForExistence(timeout: 10))
             app.buttons["끝내기"].tap()
             XCTAssertTrue(app.buttons["첫 세트 끝 → 휴식"].waitForExistence(timeout: 10))
@@ -243,6 +240,7 @@ final class NextSetUITests: XCTestCase {
 
         // 설정 시트 — 목표 2세트로
         app.buttons["설정"].tap()
+        openAdvancedSettings(app)
         let goalPlus = app.buttons["목표 세트 늘리기"]
         XCTAssertTrue(goalPlus.waitForExistence(timeout: 5))
         goalPlus.tap()
@@ -260,8 +258,7 @@ final class NextSetUITests: XCTestCase {
         capture(app, "04-일시정지")
 
         // 마지막 3초와 휴식 끝은 30초 프리셋으로. 남은 시간 레이블을 기다린다.
-        app.buttons["운동 끝내기"].tap()
-        app.buttons["기록 저장 후 종료"].tap()
+        holdToEnd(app)
         let preset30 = app.buttons["30초"]
         XCTAssertTrue(preset30.waitForExistence(timeout: 10))
         preset30.tap()
@@ -298,14 +295,11 @@ final class NextSetUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
         capture(app, "history-running-exit")
-        app.buttons["운동 끝내기"].tap()
-        app.buttons["계속하기"].tap()
+        app.buttons["운동 끝내기"].tap()  // 짧게 누르면 "길게 누르기" 안내만, 끝나지 않는다
+        capture(app, "history-short-tap-hint")
         XCTAssertTrue(app.buttons["timer.number"].exists)
         app.buttons["timer.number"].tap()
-        app.buttons["운동 끝내기"].tap()
-        XCTAssertTrue(app.buttons["기록 저장 후 종료"].waitForExistence(timeout: 5))
-        capture(app, "history-confirm-exit")
-        app.buttons["기록 저장 후 종료"].tap()
+        holdToEnd(app)
         XCTAssertTrue(app.buttons["최근 운동"].waitForExistence(timeout: 10))
         app.buttons["최근 운동"].tap()
         XCTAssertTrue(app.staticTexts["0세트 완료"].waitForExistence(timeout: 5))
@@ -325,18 +319,103 @@ final class NextSetUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-timer.reset", "-sync.off", "-timer.start", "5"]
         app.launch()
-        XCTAssertTrue(app.buttons["최근 운동"].waitForExistence(timeout: 20))
-        let end = app.buttons["운동 끝내기"]
-        XCTAssertTrue(end.exists)
-        end.tap()
-        app.buttons["기록 저장 후 종료"].tap()
-        XCTAssertTrue(app.alerts.firstMatch.waitForNonExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["바로 휴식 시작"].waitForExistence(timeout: 20))
+        app.buttons["시간 바꾸기"].tap()
+        holdToEnd(app)
+        let finish = app.buttons["끝내기"]  // 세트가 있으면 요약(3d)을 거친다
+        XCTAssertTrue(finish.waitForExistence(timeout: 10))
+        finish.tap()
         let history = app.buttons["최근 운동"]
-        XCTAssertTrue(history.waitForExistence(timeout: 5))
+        XCTAssertTrue(history.waitForExistence(timeout: 10))
         history.tap()
         XCTAssertTrue(app.staticTexts["1세트 완료"].waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         shot.name = "history-between-sets"; shot.lifetime = .keepAlways; add(shot)
+    }
+
+    /// T-88: iOS 26 휴식 끝 알람(AlarmKit). 첫 휴식에 알람 권한 → 홈으로 나가면 휴식 끝에 시스템 알람 화면.
+    @MainActor
+    func testRestEndAlarmRingsInBackground() throws {
+        let app = XCUIApplication()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        app.launchArguments = ["-timer.reset", "-sync.off", "-timer.start", "15"]
+        app.launch()
+        XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
+        let allow = springboard.alerts.buttons.matching(NSPredicate(format: "label IN {'허용', 'Allow'}")).firstMatch
+        if allow.waitForExistence(timeout: 5) {
+            capture(springboard, "alarm-01-permission")
+            allow.tap()
+        }
+        XCUIDevice.shared.press(.home)
+        sleep(16)
+        capture(springboard, "alarm-02-ringing")
+        let snooze = springboard.buttons["+30초 더 쉬기"]
+        let note = XCTAttachment(string: "snooze button exists: \(snooze.exists)\n" + springboard.debugDescription)
+        note.lifetime = .keepAlways
+        add(note)
+        XCTAssertTrue(snooze.waitForExistence(timeout: 10), "휴식 끝 알람 화면에 '+30초 더 쉬기'가 보여야 한다")
+        snooze.tap()
+        sleep(3)
+        capture(springboard, "alarm-03-snoozing")
+        app.activate()  // 앱으로 돌아오면 남은 알람을 취소한다
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10))
+        sleep(2)
+        capture(app, "alarm-04-app")
+    }
+
+    /// T-90(시안 A5): iOS 18 은 고급 설정 › 알림에 시간 민감 알림 상태 줄, iOS 26(알람 사용)은 숨긴다.
+    @MainActor
+    func testAlertSettingsFollowOSVersion() throws {
+        let app = XCUIApplication()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        app.launchArguments = ["-timer.reset", "-sync.off", "-timer.start", "60"]
+        app.launch()
+        XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
+        let allow = springboard.alerts.buttons.matching(NSPredicate(format: "label IN {'허용', 'Allow'}")).firstMatch
+        if allow.waitForExistence(timeout: 5) { allow.tap() }
+        app.buttons["설정"].tap()
+        openAdvancedSettings(app)
+        sleep(1)
+        capture(app, "alert-settings")
+        let row = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "시간 민감 알림")).firstMatch
+        let major = Int(UIDevice.current.systemVersion.split(separator: ".").first ?? "0") ?? 0
+        if major >= 26 {
+            XCTAssertFalse(row.exists, "알람을 쓰면 시간 민감 알림 줄은 필요 없다")
+        } else {
+            XCTAssertTrue(row.waitForExistence(timeout: 5), "iOS 18 은 시간 민감 알림 상태를 보여 준다")
+        }
+    }
+
+    /// T-83: 휴식 중·휴식 끝 화면에서도 설정이 열리고, 시트를 연 채 휴식이 끝나도 닫히지 않는다.
+    @MainActor
+    func testSettingsOpensDuringWorkout() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-timer.reset", "-sync.off", "-timer.start", "15"]
+        app.launch()
+        XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 10))
+        capture(app, "settings-01-running-gear")
+        app.buttons["설정"].tap()
+        let restPlus = app.buttons["기본 휴식 늘리기"]
+        XCTAssertTrue(restPlus.waitForExistence(timeout: 5), "휴식 중에도 설정 시트가 열려야 한다")
+        XCTAssertTrue(app.staticTexts["다음 휴식부터 적용"].exists)
+        restPlus.tap()
+        XCTAssertTrue(app.staticTexts["20초"].exists)
+        capture(app, "settings-02-sheet-during-rest")
+
+        sleep(16)  // 시트 뒤에서 휴식이 끝난다
+        XCTAssertTrue(restPlus.exists, "휴식이 끝나 화면이 바뀌어도 시트가 닫히면 안 된다")
+        XCTAssertFalse(app.staticTexts["다음 휴식부터 적용"].exists)
+        app.buttons["완료"].tap()
+        XCTAssertTrue(app.buttons["바로 휴식 시작"].waitForExistence(timeout: 5))
+        capture(app, "settings-03-done-gear")
+
+        app.buttons["설정"].tap()
+        XCTAssertTrue(restPlus.waitForExistence(timeout: 5), "휴식 끝 화면에서도 설정 시트가 열려야 한다")
+        app.buttons["완료"].tap()
+        app.buttons["바로 휴식 시작"].tap()
+        let number = app.buttons["timer.number"]
+        XCTAssertTrue(number.waitForExistence(timeout: 5))
+        XCTAssertTrue(number.label.hasPrefix("20초") || number.label.hasPrefix("19초"), "바꾼 기본 휴식이 다음 휴식에 적용돼야 한다: \(number.label)")
     }
 
     @MainActor
@@ -345,6 +424,7 @@ final class NextSetUITests: XCTestCase {
         app.launchArguments = ["-timer.reset", "-sync.off"]
         app.launch()
         app.buttons["설정"].tap()
+        openAdvancedSettings(app)
         XCTAssertFalse(app.switches["세트 끝 자동 감지"].exists)
         let privacy = app.buttons["개인정보 처리방침"]
         for _ in 0..<4 {
@@ -352,6 +432,7 @@ final class NextSetUITests: XCTestCase {
             app.swipeUp()
         }
         XCTAssertTrue(privacy.waitForExistence(timeout: 5))
+        sleep(1)  // 스크롤 관성이 남아 있으면 탭이 스크롤만 멈춘다
         privacy.tap()
         XCTAssertTrue(app.staticTexts["최종 수정: 2026년 9월 22일"].waitForExistence(timeout: 5))
         capture(app, "release-privacy")
@@ -368,7 +449,9 @@ final class NextSetUITests: XCTestCase {
         XCTAssertTrue(app.buttons["60s"].exists)
         capture(app, "en-setup")
         app.buttons["Settings"].tap()
-        XCTAssertTrue(app.staticTexts["Rest alerts"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Increase Default rest"].waitForExistence(timeout: 5))
+        capture(app, "en-settings-quick")
+        openAdvancedSettings(app, all: "All settings", advanced: "Advanced settings")
         XCTAssertTrue(app.buttons["Increase Set goal"].exists)
         app.buttons["Increase Set goal"].tap()
         XCTAssertTrue(app.staticTexts["2 sets"].exists)
@@ -393,6 +476,7 @@ final class NextSetUITests: XCTestCase {
             if privacy.isHittable { break }
             app.swipeUp()
         }
+        sleep(1)  // 스크롤 관성이 남아 있으면 탭이 스크롤만 멈춘다
         privacy.tap()
         XCTAssertTrue(app.staticTexts["Last updated: September 22, 2026"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label BEGINSWITH %@", "NextSet is a workout rest timer")).firstMatch.exists)
@@ -404,7 +488,7 @@ final class NextSetUITests: XCTestCase {
         XCTAssertTrue(app.buttons["timer.number"].waitForExistence(timeout: 5))
         capture(app, "en-running")
         app.buttons["timer.number"].tap()
-        XCTAssertTrue(app.staticTexts["Paused"].exists)
+        XCTAssertTrue(app.staticTexts["Paused · Tap to resume"].exists)
         capture(app, "en-paused")
         app.buttons["Skip"].tap()
         XCTAssertTrue(app.buttons["Go again"].waitForExistence(timeout: 5))
@@ -444,7 +528,7 @@ final class NextSetUITests: XCTestCase {
         defer { XCUIDevice.shared.orientation = .portrait }
         app.launchArguments = ["-timer.reset", "-sync.off", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
-        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 30))  // 새 클론 시뮬레이터 첫 실행이 느리다
         captureDevice("adaptive-setup-portrait")
         XCUIDevice.shared.orientation = .landscapeLeft
         sleep(1) // UIKit rotation must settle before tapping coordinates.
@@ -459,14 +543,14 @@ final class NextSetUITests: XCTestCase {
         let number = app.buttons["timer.number"]
         XCTAssertTrue(number.waitForExistence(timeout: 5))
         number.tap()
-        XCTAssertTrue(app.staticTexts["Paused"].exists)
+        XCTAssertTrue(app.staticTexts["Paused · Tap to resume"].exists)
         let remaining = number.label
         for orientation in [UIDeviceOrientation.portrait, .landscapeRight, .portrait, .landscapeLeft] {
             XCUIDevice.shared.orientation = orientation
             sleep(1)
             XCTAssertTrue(number.waitForExistence(timeout: 5))
             XCTAssertEqual(number.label, remaining, "Resizing must preserve paused time")
-            XCTAssertTrue(app.staticTexts["Paused"].exists)
+            XCTAssertTrue(app.staticTexts["Paused · Tap to resume"].exists)
         }
         reveal(app.buttons["Skip"], in: app)
         captureDevice("adaptive-paused-landscape")
@@ -475,15 +559,34 @@ final class NextSetUITests: XCTestCase {
         XCTAssertTrue(rest.waitForExistence(timeout: 5))
         reveal(rest, in: app)
         captureDevice("adaptive-rest-ended-landscape")
+        app.buttons["Change time"].tap()
         reveal(app.buttons["End workout"], in: app)
-        app.buttons["End workout"].tap()
-        app.buttons["Save and end"].tap()
+        holdToEnd(app, label: "End workout")
         let finish = app.buttons["Finish"]
         XCTAssertTrue(finish.waitForExistence(timeout: 5))
         reveal(finish, in: app)
         captureDevice("adaptive-summary-landscape")
         finish.tap()
         XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 5))
+    }
+
+    /// 좌상단 "종료"를 길게 눌러 끝낸다(0.7초, 확인창 없음).
+    @MainActor
+    private func holdToEnd(_ app: XCUIApplication, label: String = "운동 끝내기") {
+        let end = app.buttons[label].firstMatch
+        XCTAssertTrue(end.waitForExistence(timeout: 5))
+        end.press(forDuration: 1.2)
+    }
+
+    /// 설정 시트 → "모든 설정" → "고급 설정" 펼치기.
+    @MainActor
+    private func openAdvancedSettings(_ app: XCUIApplication, all: String = "모든 설정", advanced: String = "고급 설정") {
+        let allSettings = app.buttons[all]
+        XCTAssertTrue(allSettings.waitForExistence(timeout: 5))
+        allSettings.tap()
+        let disclosure = app.buttons[advanced]
+        XCTAssertTrue(disclosure.waitForExistence(timeout: 5))
+        disclosure.tap()
     }
 
     @MainActor

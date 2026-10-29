@@ -11,6 +11,7 @@ struct ContentView: View {
     @Environment(RestTimer.self) private var timer
     @Environment(\.scenePhase) private var scenePhase
     @State private var confirmsEnd = false
+    @State private var showsSettings = false
 
     var body: some View {
         #if DEBUG
@@ -47,6 +48,12 @@ struct ContentView: View {
             Text(String(localized: "Your workout summary will be saved to Recent workouts."))
         }
         .environment(\.requestWorkoutEnd, { confirmsEnd = true })
+        // 설정 시트는 화면(phase)보다 위에서 띄운다 — 휴식 중에 열어 둔 채 휴식이 끝나도 닫히지 않는다.
+        .sheet(isPresented: $showsSettings) {
+            SettingsSheet()
+                .environment(timer)
+        }
+        .environment(\.requestSettings, { showsSettings = true })
         .preferredColorScheme(.dark)
         .onChange(of: scenePhase, initial: true) { _, phase in
             timer.scenePhaseChanged(isActive: phase == .active)

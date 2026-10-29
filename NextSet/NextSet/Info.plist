@@ -2,7 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<!-- 위젯 탭 → 앱 열기. nextset://start 는 마지막 프리셋으로 즉시 시작 (3e). 나머지 키는 빌드 설정(GENERATE_INFOPLIST_FILE)이 채운다. -->
+	<!-- iOS 26 휴식 끝 알람(AlarmKit) 권한 문구. 비어 있으면 알람을 예약할 수 없다. 번역은 Shared/InfoPlist.xcstrings -->
+	<key>NSAlarmKitUsageDescription</key>
+	<string>Your rest end will ring as an alarm, even in Silent mode or a Focus.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<!-- 6a 런치 스크린: 검정 한 장. 로고 없이 곧바로 3a 로 이어진다 -->

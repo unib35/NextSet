@@ -116,7 +116,7 @@ struct LiveActivityCard: View {
     }
 }
 
-/// 3f/3g 버튼 묶음. 실행 중: [❙❙ / +10 / +30] + 건너뛰기. 대기·휴식 끝: 시작 CTA + 앱 열기. 완료: 한 번 더 + 앱 열기.
+/// 3f/3g 버튼 묶음. 실행 중: [일시정지 아이콘 / +10 / +30] + 건너뛰기. 대기·휴식 끝: 시작 CTA + 앱 열기. 완료: 한 번 더 + 앱 열기.
 /// "종료"는 두지 않는다 — 카드가 작아 실수로 누르기 쉽다(2026-09-19). 끝내기는 앱 안 확인창으로.
 struct LiveActivityButtons: View {
     let display: RestDisplay
@@ -127,8 +127,9 @@ struct LiveActivityButtons: View {
         VStack(spacing: 8) {
             switch display {
             case .running, .paused:
-                HStack(spacing: 6) {  // 3f: [❙❙] [+10] [+30]
-                    IntentPill(isPaused ? "▶" : "❙❙", intent: TogglePauseIntent(), onOrange: onOrange, height: height)
+                HStack(spacing: 6) {  // 3f: [일시정지] [+10] [+30]
+                    IntentPill(isPaused ? String(localized: "Resume") : String(localized: "Pause"), systemImage: isPaused ? "play.fill" : "pause.fill",
+                               intent: TogglePauseIntent(), onOrange: onOrange, height: height)
                     IntentPill("+10", intent: AddSecondsIntent(seconds: 10), onOrange: onOrange, height: height)
                     IntentPill("+30", intent: AddSecondsIntent(seconds: 30), onOrange: onOrange, height: height)
                 }

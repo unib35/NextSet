@@ -10,7 +10,7 @@ final class RestTimer {
     static let doneScreenDuration: TimeInterval = 3.0
 
     /// 앱이 쓰는 단 하나의 인스턴스. 위젯·Live Activity 버튼(AppIntent)도 여기로 들어온다.
-    static let main = RestTimer()
+    static let main = RestTimer(alarm: RestAlarm())
 
     /// 이 기기에서 저장한 운동 기록 수(삭제와 무관하게 누적). 첫 실행 힌트(6c·6d)의 표시 시점 판단에 쓴다.
     @ObservationIgnored private(set) var endedWorkoutCount: Int {
@@ -34,13 +34,17 @@ final class RestTimer {
             // 설정 시트에서 소리를 바꾸면 바로 들려준다.
             if settings.sound != oldValue.sound, !isAdopting { feedback.preview(settings.sound) }
             if settings.haptic != oldValue.haptic, !isAdopting { feedback.previewHaptic(settings.haptic) }
-            if settings.liveActivity != oldValue.liveActivity {
+            // 목표 세트는 휴식 중에도 설정 시트에서 바뀐다 — Live Activity 의 세트 표시와 종료 알림 문구가 목표에 따라 달라진다.
+            if settings.liveActivity != oldValue.liveActivity || settings.goalSets != oldValue.goalSets {
                 liveActivity.sync(settings: settings, session: session)
             }
             if !isAdopting, session.phase == .running,
-               settings.sound != oldValue.sound || settings.repeatAlert != oldValue.repeatAlert {
+               settings.sound != oldValue.sound || settings.repeatAlert != oldValue.repeatAlert
+                || settings.goalSets != oldValue.goalSets {
                 scheduleRestEndAlert()
             }
+            if !isAdopting { syncWorkoutReminder() }
+            syncRestAlarm()  // 소리를 끄면 알람 대신 알림, 목표가 바뀌면 알람 제목이 바뀐다
             // 스테퍼를 연타해도 위젯 갱신은 한 번만.
             scheduleWidgetReload(after: .milliseconds(500))
             markChanged()
@@ -52,6 +56,8 @@ final class RestTimer {
             scheduleWidgetReload(after: .zero)
             liveActivity.sync(settings: settings, session: session)
             markChanged()
+            if !isAdopting { syncWorkoutReminder() }
+            syncRestAlarm()
         }
     }
     private(set) var now: Date
@@ -62,6 +68,8 @@ final class RestTimer {
 
     @ObservationIgnored private let defaults: UserDefaults
     let notifications: RestNotifications
+    /// iOS 26 휴식 끝 알람. 기본값은 꺼짐(테스트) — 앱은 `main`에서 켠다.
+    let alarm: RestAlarm
     @ObservationIgnored private let notificationDevice: NotificationDevice
     @ObservationIgnored private let liveActivity: RestActivityController
     @ObservationIgnored private let feedback = RestFeedback()
@@ -78,9 +86,11 @@ final class RestTimer {
          notifications: RestNotifications = RestNotifications(),
          liveActivity: RestActivityController = RestActivityController(),
          clock: @escaping () -> Date = { .now },
-         notificationDevice: NotificationDevice = .current) {
+         notificationDevice: NotificationDevice = .current,
+         alarm: RestAlarm = RestAlarm(backend: .unavailable)) {
         self.defaults = defaults
         self.notifications = notifications
+        self.alarm = alarm
         self.notificationDevice = notificationDevice
         self.liveActivity = liveActivity
         self.clock = clock
@@ -93,6 +103,7 @@ final class RestTimer {
         lastChangedAt = stored.map { Date(timeIntervalSince1970: $0) } ?? .distantPast
         endedWorkoutCount = defaults.integer(forKey: TimerStore.Keys.endedWorkouts).clamped(to: 0...TimerValidation.maxCount)
         tick()
+        syncWorkoutReminder()
     }
 
     // MARK: - 파생 값 (위젯과 같은 계산 → `TimerSnapshot`)
@@ -128,7 +139,7 @@ final class RestTimer {
         (session.phase == .idle || session.phase == .done) && (session.workoutID != nil || session.completedSets > 0)
     }
     var averageRest: TimeInterval { session.totalRested / Double(max(1, session.completedSets)) }
-    var dots: [SetDot] { snapshot.dots }
+    var dots: SetProgress { snapshot.dots }
     var setCaption: String { snapshot.setCaption }
 
     var startLabel: String {
@@ -154,6 +165,7 @@ final class RestTimer {
         if next.workoutID == nil {
             next.workoutID = UUID()
             next.startedAt = now
+            next.lastSetProgressAt = now
         }
         next.phase = .running
         next.notificationDevice = notificationDevice
@@ -275,8 +287,8 @@ final class RestTimer {
         resetSession()
     }
 
+    /// 휴식 중에 바꾸면(설정 시트) 진행 중인 휴식은 그대로 두고 다음 휴식부터 적용한다.
     func setRestSeconds(_ seconds: Int) {
-        guard !isActive else { return }
         settings.restSeconds = seconds.clamped(to: TimerSettings.restRange)
     }
 
@@ -352,6 +364,7 @@ final class RestTimer {
         lastCountdownSecond = nil
         if self.session.phase == .running { scheduleRestEndAlert() } else { notifications.cancelPending() }
         tick()
+        syncWorkoutReminder()
     }
 
     private func markChanged() {
@@ -370,11 +383,14 @@ final class RestTimer {
 
     func scenePhaseChanged(isActive: Bool) {
         isInForeground = isActive
+        if isActive { alarm.refreshAuthorization() }
+        syncRestAlarm(force: isActive)  // 뒤로 가면 알람 예약, 앞으로 오면 울리는 중이어도 취소(앱이 직접 알린다)
         guard isActive else { return }
         tick()
         // 앱을 열었으면 반응한 것으로 보고 쌓인 알림과 반복 알림을 정리한다.
         notifications.removeDelivered()
         if session.phase == .running { scheduleRestEndAlert() } else { notifications.cancelPending() }
+        syncWorkoutReminder()
         Task { await notifications.refreshAuthorization() }
     }
 
@@ -415,7 +431,10 @@ final class RestTimer {
         var next = session
         next.totalRested += max(0, session.restDuration - (skipped ? remaining : 0))
         if skipped { next.skippedCount += 1 }
-        if settings.mode == .sets { next.completedSets += 1 }
+        if settings.mode == .sets {
+            next.completedSets += 1
+            next.lastSetProgressAt = date
+        }
         next.restCount = (session.restCount ?? session.completedSets) + 1
         next.endDate = nil
         next.pausedRemaining = 0
@@ -514,6 +533,24 @@ final class RestTimer {
             return
         }
         guard let endDate = session.endDate else { return }
+        // iOS 26: 첫 휴식에 알림 대신 알람 권한을 묻는다(시안 A1). 답을 받은 뒤 다시 들어와 알람 또는 알림으로 나뉜다.
+        if alarm.authorization == .notDetermined, settings.sound != .off {
+            notifications.cancelPending()
+            guard !alarm.isRequestingAuthorization else { return }
+            Task { [weak self] in
+                await self?.alarm.requestAuthorization()
+                guard let self, self.session.phase == .running else { return }
+                self.scheduleRestEndAlert()
+                self.syncRestAlarm()
+            }
+            return
+        }
+        if usesRestAlarm {
+            notifications.cancelPending()  // 알람과 알림이 겹쳐 두 번 울리지 않게
+            syncRestAlarm()
+            syncWorkoutReminder()
+            return
+        }
         let alert: RestNotifications.Alert
         if settings.mode == .single {
             alert = .init(title: String(localized: "Countdown complete"), body: String(localized: "Your timer has finished."), isActionable: false)
@@ -525,6 +562,53 @@ final class RestTimer {
         notifications.schedule(alert, at: endDate,
                                sound: settings.sound,
                                repeating: alert.isActionable && settings.repeatAlert)
+        syncWorkoutReminder()
+    }
+
+    // MARK: - 알람 (iOS 26)
+
+    /// 소리를 끈 사람에게 알람을 울리지 않는다 — 그 경우는 기존 알림(무음 배너)으로.
+    var usesRestAlarm: Bool { alarm.authorization == .authorized && settings.sound != .off }
+
+    /// 지금 예약돼 있어야 할 알람. 시작한 기기에서, 앱이 뒤에 있고, 휴식이 흐르는 동안만.
+    var restAlarmRequest: RestAlarm.Request? {
+        guard usesRestAlarm, ownsRestAlert, !isInForeground, session.phase == .running,
+              let endDate = session.endDate else { return nil }
+        let isFinal = settings.mode == .single || (hasGoal && session.completedSets + 1 >= settings.goalSets)
+        let title = settings.mode == .single ? String(localized: "Countdown complete")
+            : isFinal ? String(localized: "Workout complete")
+            : String(localized: "Rest over · Set \(session.completedSets + 2)")
+        return RestAlarm.Request(fireDate: endDate, title: title,
+                                 snoozeLabel: isFinal ? nil : String(localized: "+30 sec more rest"),
+                                 snoozingTitle: String(localized: "Resting 30 more sec"),
+                                 stopLabel: String(localized: "Stop"))
+    }
+
+    /// 시간이 다 돼 휴식이 끝난 전환(`isSystemTransition`)은 울리는 알람을 지우지 않는다. 앞으로 오면 `force`.
+    private func syncRestAlarm(force: Bool = false) {
+        alarm.sync(restAlarmRequest, force: force || !isSystemTransition)
+    }
+
+    /// 백그라운드에서는 tick이 멈추므로 진행 중 휴식의 예정 완료 시점까지 반영해 미리 예약한다.
+    private func syncWorkoutReminder() {
+        guard settings.mode == .sets, ownsRestAlert, session.workoutID != nil,
+              session.phase != .finished, session.historySaved != true,
+              !(hasGoal && session.completedSets >= settings.goalSets),
+              let baseline = session.lastSetProgressAt ?? session.doneAt ?? session.startedAt else {
+            notifications.scheduleWorkoutReminder(at: nil, sound: settings.sound)
+            return
+        }
+        let unchangedDeadline = baseline.addingTimeInterval(3600)
+        if session.phase == .running, let endDate = session.endDate, endDate <= unchangedDeadline {
+            if hasGoal && session.completedSets + 1 >= settings.goalSets {
+                notifications.scheduleWorkoutReminder(at: nil, sound: settings.sound)
+            } else {
+                notifications.scheduleWorkoutReminder(at: max(baseline, endDate).addingTimeInterval(3600), sound: settings.sound)
+            }
+        } else {
+            // 시간을 계속 늘려 휴식 자체가 한 시간을 넘겨도 확인을 무한히 미루지 않는다.
+            notifications.scheduleWorkoutReminder(at: unchangedDeadline, sound: settings.sound)
+        }
     }
 
     private func showToast(_ message: String) {

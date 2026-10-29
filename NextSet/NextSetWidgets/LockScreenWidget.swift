@@ -130,43 +130,57 @@ struct LockScreenWidgetView: View {
         .containerBackground(for: .widget) { AccessoryWidgetBackground() }
     }
 
-    // MARK: 직사각형 — 제목 + 상태 + 세트 점
+    // MARK: 직사각형 — 시안 3e(B4): 큰 숫자 + "탭하여 휴식 시작" + 세트 수. 잠금화면은 늘 단색이라 색이 아닌 크기로 구분
 
     private var rectangular: some View {
-        VStack(alignment: .leading, spacing: 3) {
-            Text(String(localized: "NextSet"))
-                .font(.system(size: 13, weight: .semibold))
-                .opacity(0.8)
-            Group {
-                switch entry.state {
-                case .idle(let seconds):
-                    Text(String(localized: "Tap for \(seconds)s rest"))
-                case .running(let end):
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text(timerInterval: entry.date...max(end, entry.date), countsDown: true, showsHours: false)
-                            .monospacedDigit()
-                            .widgetAccentable()
-                        Text(String(localized: "Resting · Set \(entry.snapshot.nextSetNumber)"))
-                            .font(.system(size: 13, weight: .medium))
-                            .opacity(0.7)
-                    }
-                case .paused(let remaining):
-                    Text(String(localized: "Paused · \(formatRemaining(remaining))"))
-                        .monospacedDigit()
-                case .ended(let nextSet):
-                    Text(String(localized: "Rest over · Start set \(nextSet)"))
-                        .widgetAccentable()
-                case .finished:
-                    Text(String(localized: "Workout complete ✓"))
-                }
+        HStack(spacing: 10) {
+            rectangularNumber
+                .font(.system(size: 34, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .widgetAccentable()
+                .layoutPriority(1)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(rectangularTitle)
+                    .font(.system(size: 13, weight: .semibold))
+                Text(rectangularCaption)
+                    .font(.system(size: 12))
+                    .opacity(0.7)
             }
-            .font(.system(size: 17, weight: .bold, design: .rounded))
             .lineLimit(1)
             .minimumScaleFactor(0.7)
-            WidgetSetDots(dots: entry.snapshot.dots, monochrome: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .containerBackground(for: .widget) { Color.clear }
+    }
+
+    @ViewBuilder
+    private var rectangularNumber: some View {
+        switch entry.state {
+        case .idle(let seconds): Text("\(seconds)")
+        case .running(let end):
+            Text(timerInterval: entry.date...max(end, entry.date), countsDown: true, showsHours: false)
+                .frame(maxWidth: 84, alignment: .leading)
+        case .paused(let remaining): Text(formatRemaining(remaining))
+        case .ended(let nextSet): Text("\(nextSet)")
+        case .finished: Image(systemName: "checkmark")
+        }
+    }
+
+    private var rectangularTitle: String {
+        switch entry.state {
+        case .idle: entry.snapshot.settings.widgetTap == .start ? String(localized: "Tap to start rest") : String(localized: "NextSet")
+        case .running: String(localized: "Resting")
+        case .paused: String(localized: "Paused")
+        case .ended: String(localized: "Rest over")
+        case .finished: String(localized: "Workout complete")
+        }
+    }
+
+    private var rectangularCaption: String {
+        if case .ended(let nextSet) = entry.state { return String(localized: "Start set \(nextSet)") }
+        return entry.snapshot.setCaption
     }
 
     // MARK: 한 줄

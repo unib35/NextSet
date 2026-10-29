@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  iPad 13" App Store 스크린샷 렌더러 (T-63 후속).
+  원본: Claude Design 프로젝트 "NextSet" 의 `App Store Screenshots.dc.html` iPad 섹션 (2026-09-23 에 읽은 판).
+  시안은 2064×2752 세로 캔버스 4장(P1 휴식 중 · P2 시간 선택 · P3 Split View · P4 완료 요약)이며,
+  Claude Design 런타임 없이 정적 HTML로 옮긴 후, 현재 앱의 UI와 iPhone 스토어 카피에 맞게 개선했다.
+  iPad 섹션은 ios-frame.jsx 의 IOSDevice 를 쓰지 않고 자체 태블릿 프레임을 그린다. 실제 기기 캡처가 아닌 목업이다.
+
+  ?lang=ko|en  &secs=45|60|90  &screen=1..4 (screen 없으면 전부 나열)
+  PNG 로 뽑기: node tools/appstore-screenshots/render-ipad.mjs
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NextSet · iPad App Store screenshots</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#171719;color:#fff;font-family:-apple-system,system-ui,"Apple SD Gothic Neo",sans-serif;-webkit-font-smoothing:antialiased}
+body.single{background:#000;overflow:hidden}
+#root{display:grid;grid-template-columns:repeat(auto-fit,516px);gap:28px;padding:32px;justify-content:center}
+body.single #root{display:block;padding:0}
+.shot{width:2064px;height:2752px;position:relative;overflow:hidden;background:#000;color:#fff;flex:none}
+.shot.orange{background:#FF9500;color:#000}
+/* T-63: 두 줄 헤드라인과 보조 문구를 iPhone 자료와 통일. */
+.copy{position:absolute;left:0;right:0;top:245px;padding:0 160px;text-align:left}
+.copy h1{margin:0;font-size:146px;font-weight:780;letter-spacing:-6px;line-height:1.1;text-wrap:balance;word-break:keep-all}
+/* 시안: left:152 top:1010 1760×1284, r120, 52px 베젤 */
+.tablet{position:absolute;left:152px;top:1010px;width:1760px;height:1284px;border-radius:120px;background:#1c1c1e;padding:52px}
+.orange .tablet{box-shadow:inset 0 0 0 4px #3a3a3c,0 80px 160px rgba(0,0,0,.35)}
+.shot:not(.orange) .tablet{box-shadow:inset 0 0 0 4px #3a3a3c,0 80px 160px rgba(0,0,0,.6)}
+.screen{width:100%;height:100%;border-radius:72px;overflow:hidden;background:#000;color:#fff;position:relative;display:flex;flex-direction:column;padding:48px 72px 64px}
+.status{display:flex;justify-content:space-between;align-items:center;font-size:30px;font-weight:600}
+.status .bat{opacity:.5;font-size:26px}
+.nowrap{white-space:nowrap;flex:none}
+.pill{display:flex;align-items:center;justify-content:center;border-radius:64px;background:#1C1C1E}
+.pill.brand{background:#FF9500;color:#000;font-weight:700}
+.preview{width:516px;margin:0}
+.preview a{display:block;color:inherit;text-decoration:none}
+.preview-canvas{width:516px;height:688px;overflow:hidden}
+.preview-canvas>.shot{transform:scale(.25);transform-origin:0 0}
+.preview figcaption{font-size:13px;color:#b8b8be;margin-top:10px}
+.copy p{font-size:43px;line-height:1.5;letter-spacing:-.8px;color:#aaa9ae;margin:34px 0 0}.orange .copy p{color:#372100}.copy h1 em{font-style:normal;color:#ff9500}.orange .copy h1 em{color:inherit}.body-columns{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}.big{font-size:360px;font-weight:700;letter-spacing:-18px;line-height:1;color:#ff9500;font-variant-numeric:tabular-nums}.hint{font-size:32px;color:#999;margin-top:28px;text-align:center}.bar{height:8px;background:#1c1c1e;border-radius:5px;overflow:hidden;margin-bottom:32px}.bar>div{height:100%;background:#ff9500}.adjust{height:104px;background:#1c1c1e;border-radius:52px;display:flex;align-items:center;flex:1.43;font-size:31px;font-weight:600}.adjust span{flex:1;text-align:center}.adjust span+span{border-left:2px solid #38383a}.controlrow{display:flex;gap:20px}.end{font-size:30px;font-weight:600;color:#999;text-align:center;padding-top:28px}.apphead{display:flex;justify-content:space-between;font-size:34px;font-weight:600;margin-top:36px}.presetrow{display:flex;justify-content:space-between;font-size:38px;font-weight:600;color:#888;margin-bottom:30px}.presetrow span{padding:20px 16px 30px}.presetrow .selected{color:#ff9500;border-bottom:4px solid #ff9500}.screen{padding-bottom:64px}.home{position:absolute;bottom:20px;left:calc(50% - 170px);width:340px;height:7px;border-radius:5px;background:#666}.screen::after{content:'';position:absolute;bottom:20px;left:calc(50% - 170px);width:340px;height:7px;border-radius:5px;background:#666}.screen.split::after{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const lang = q.get('lang') === 'en' ? 'en' : 'ko';
+const requestedSeconds = Number(q.get('secs') || 60);
+const secs = [45,60,90].includes(requestedSeconds) ? requestedSeconds : 60;
+const only = q.get('screen');
+document.documentElement.lang = lang;
+
+// Original P1–P4 composition; copy and UI aligned with the current app.
+const S = {
+ ko:{h1:'세트 사이,<br>딱 필요한 휴식.',h2:'내 휴식 시간,<br><em>탭 한 번으로.</em>',hP3:'영상은 옆에,<br><em>휴식은 한눈에.</em>',h8:'오늘의 운동,<br>숫자로 한눈에.',descs:['큼직한 숫자로 남은 시간을 확인하세요.','자주 쓰는 시간을 고르고 바로 시작하세요.','화면을 나눠 쓰면서 타이머를 확인하세요.','완료한 세트와 총 휴식 시간을 확인하세요.'],resting:'휴식',setCap:'세트 3 완료',tapPause:'탭하여 일시정지',skip:'건너뛰기',secUnit:'초 휴식',setsTab:'세트 휴식',countdownTab:'카운트다운',recent:'최근 운동',start:'첫 세트 끝 → 휴식',noSets:'세트 시작 전',end:'운동 끝내기',workoutDone:'운동 완료',setsDone:'세트 완료',totalRest:'총 휴식',avgRest:'평균 휴식',skippedRest:'건너뛴 휴식',again:'한 번 더',finish:'끝내기',count:'1회'},
+ en:{h1:'Between sets.<br>Time to rest.',h2:'Your rest.<br><em>One tap away.</em>',hP3:'Your video.<br><em>Your rest, beside it.</em>',h8:'Workout done.<br>See your numbers.',descs:['One big number. Your remaining rest, at a glance.','Pick your time and start the next rest.','Keep your timer in view while using another app.','Your completed sets and rest time, together.'],resting:'Rest',setCap:'Set 3 complete',tapPause:'Tap to pause',skip:'Skip',secUnit:'sec rest',setsTab:'Set rest',countdownTab:'Countdown',recent:'Recent workouts',start:'Set done → Rest',noSets:'No sets yet',end:'End workout',workoutDone:'Workout complete',setsDone:'sets completed',totalRest:'Total rest',avgRest:'Average rest',skippedRest:'Skipped rests',again:'Go again',finish:'Finish',count:'1 time'}
+};
+const t=S[lang],rem=Math.max(1,secs-18);
+const total=secs*7+Math.max(1,secs-16);
+const format=n=>Math.floor(n/60)+':'+String(Math.floor(n%60)).padStart(2,'0');
+const statRest=format(total),statAvg=format(total/8);
+
+const dots = (n, size, gap, extraWhite, mt) => `<div style="display:flex;gap:${gap}px${mt ? `;margin-top:${mt}px` : ''}">${`<div style="width:${size}px;height:${size}px;border-radius:${size / 2}px;background:#FF9500"></div>`.repeat(n)}${extraWhite ? `<div style="width:${size}px;height:${size}px;border-radius:${size / 2}px;background:#fff"></div>` : ''}</div>`;
+const status = `<div class="status"><span>9:41</span><span class="bat">100%</span></div>`;
+const gear = `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>`;
+const statRow = (label, value) => `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:28px 0;border-bottom:2px solid #1C1C1E"><span style="font-size:32px;opacity:.55">${label}</span><span style="white-space:nowrap;font-size:50px;font-weight:600;font-variant-numeric:tabular-nums">${value}</span></div>`;
+
+const shot = (id, headline, screen, { orange = false } = {}) => `
+<article id="${id}" class="shot ${orange ? 'orange' : ''}">
+<header class="copy"><h1>${headline}</h1><p>${t.descs[Number(id.slice(1))-1]}</p></header>
+<div class="tablet">${screen}</div>
+</article>`;
+
+const progress=`<div class="bar"><div style="width:${rem/secs*100}%"></div></div>`;
+const adjustments=`<div class="adjust"><span style="color:#888">−10</span><span>+10</span><span>+30</span></div>`;
+const controls=`${progress}<div class="controlrow">${adjustments}<div class="pill brand nowrap" style="flex:1;height:104px;font-size:34px">${t.skip}</div></div><div class="end">${t.end}</div>`;
+const p1=shot('p1',t.h1,`<div class="screen">${status}<div class="apphead"><span>${t.resting}</span><span style="color:#777">${t.setCap}</span></div>${dots(3,18,14,true,28)}<div class="body-columns"><div style="text-align:center"><div class="big">${rem}</div><div class="hint">${t.tapPause}</div></div><div>${controls}</div></div></div>`,{orange:true});
+const p2=shot('p2',t.h2,`<div class="screen">${status}<div class="apphead" style="align-items:center;gap:28px"><span style="flex:1;text-align:center;border-bottom:4px solid #ff9500;padding:14px 0 24px">${t.setsTab}</span><span style="flex:1;text-align:center;color:#777;padding:14px 0 24px">${t.countdownTab}</span><div style="width:76px;height:76px;border-radius:50%;background:#1c1c1e;display:flex;align-items:center;justify-content:center">${gear}</div></div><div style="display:flex;justify-content:space-between;margin-top:28px;font-size:32px"><span style="color:#777">${t.noSets}</span><span style="color:#ff9500">${t.recent}</span></div>${dots(0,18,14,true,20)}<div class="body-columns"><div style="text-align:center"><div class="big">${secs}</div><div class="hint">${t.secUnit}</div><div style="display:flex;justify-content:center;gap:44px;margin-top:48px">${['−','+'].map(x=>`<div style="width:112px;height:112px;border-radius:50%;border:3px solid #333;display:flex;align-items:center;justify-content:center;font-size:64px">${x}</div>`).join('')}</div></div><div><div class="presetrow">${[30,45,60,90,120].map(x=>`<span class="${x===secs?'selected':''}">${x}</span>`).join('')}</div><div class="pill brand nowrap" style="height:112px;font-size:35px">${t.start}</div></div></div></div>`);
+const videoTitle=lang==='ko'?'오늘의 운동 루틴':'Today’s workout';
+const p3=shot('p3',t.hP3,`<div class="screen split" style="padding:0;flex-direction:row"><div style="flex:1;background:#141416;padding:48px;display:flex;flex-direction:column;gap:30px"><div class="status">9:41</div><div style="font-size:34px;font-weight:650;margin-top:20px">${videoTitle}</div><div style="height:430px;background:#232326;border-radius:28px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden"><svg viewBox="0 0 600 330" width="100%" height="330" style="position:absolute;top:0" fill="none" stroke="#525258" stroke-width="13" stroke-linecap="round"><path d="M100 240h400 M180 215l60-80h130l65 80 M244 135l-24-42 M370 135l28-42"/><path d="M156 60h288 M182 35v50 M208 29v62 M394 29v62 M420 35v50" stroke="#77777e"/></svg><div style="position:absolute;left:calc(50% - 40px);top:150px;width:80px;height:80px;border-radius:50%;background:#ffffff20;display:flex;justify-content:center;align-items:center"><svg width="32" height="36" viewBox="0 0 32 36"><path d="M6 3L29 18 6 33Z" fill="white"/></svg></div><div style="padding:24px;font-size:24px;color:#aaa"><div style="height:5px;background:#555;margin-bottom:16px"><div style="height:100%;width:35%;background:#ddd"></div></div>04:12 <span style="float:right">12:00</span></div></div><div style="font-size:30px;font-weight:600">${videoTitle}</div><div style="display:flex;flex-direction:column;gap:22px">${[95,78,88].map(w=>`<div style="height:22px;background:#2b2b2f;border-radius:8px;width:${w}%"></div>`).join('')}</div></div><div style="width:12px;background:#060606;display:flex;align-items:center;justify-content:center"><div style="width:6px;height:80px;border-radius:3px;background:#666"></div></div><div style="width:680px;flex:none;padding:48px 38px 70px;display:flex;flex-direction:column;position:relative"><div class="status" style="justify-content:flex-end"><span class="bat">100%</span></div><div class="apphead" style="font-size:27px"><span>${t.resting}</span><span style="color:#777">${t.setCap}</span></div>${dots(3,14,12,true,24)}<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="big" style="font-size:290px;letter-spacing:-15px">${rem}</div><div class="hint" style="font-size:26px">${t.tapPause}</div></div>${controls}<div class="home" style="width:190px;left:calc(50% - 95px)"></div></div></div>`);
+const p4=shot('p4',t.h8,`<div class="screen">${status}<div class="apphead" style="color:#ff9500">${t.workoutDone}</div>${dots(8,18,14,false,28)}<div class="body-columns"><div><div class="big" style="font-size:216px;letter-spacing:-11px">8</div><div style="font-size:40px;font-weight:600;margin-top:18px">${t.setsDone}</div><div style="border-top:2px solid #1c1c1e;margin-top:50px">${statRow(t.totalRest,statRest)}${statRow(t.avgRest,statAvg)}${statRow(t.skippedRest,t.count)}</div></div><div><div class="pill brand nowrap" style="height:112px;font-size:38px">${t.again}</div><div class="end">${t.finish}</div></div></div></div>`,{orange:true});
+
+const screens = [p1, p2, p3, p4];
+const labels = lang === 'ko' ? ['P1 · 휴식 중', 'P2 · 시간 선택', 'P3 · Split View', 'P4 · 완료 요약'] : ['P1 · Resting', 'P2 · Pick time', 'P3 · Split View', 'P4 · Summary'];
+const root = document.querySelector('#root');
+if (only) {
+  document.body.classList.add('single');
+  root.innerHTML = screens[Number(only) - 1] ?? '';
+} else {
+  root.innerHTML = screens.map((html, i) => `<figure class="preview"><a href="?lang=${lang}&secs=${secs}&screen=${i + 1}"><div class="preview-canvas">${html}</div></a><figcaption>${labels[i]} · 2064×2752</figcaption></figure>`).join('');
+}
+document.fonts.ready.then(() => document.documentElement.dataset.ready = 'true');
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// 3b 휴식 중 / 일시정지 (숫자 탭) + 4a 마지막 3초 햅틱 카운트.
+/// 3b 휴식 중 / 일시정지 (숫자 탭) + 4a 마지막 3초 햅틱 카운트. 종료는 좌상단 길게 누르기.
 struct RunningView: View {
     @Environment(RestTimer.self) private var timer
     @Environment(FirstRunHints.self) private var hints
@@ -8,42 +8,20 @@ struct RunningView: View {
     var body: some View {
         let isPaused = timer.session.phase == .paused
         let isFinal = timer.isFinalCountdown
-        let numberColor: Color = isPaused ? .white.opacity(0.35) : isFinal ? .white : .brand
+        let numberColor: Color = isPaused ? .white.opacity(0.45) : isFinal ? .white : .brand
 
         AdaptiveTimerScreen {
-            VStack(spacing: 0) {
-                HStack {
-                    Text(
-                        isPaused
-                            ? String(localized: "Paused")
-                            : timer.settings.mode == .single ? String(localized: "Countdown") : String(localized: "Rest"))
-                    Spacer()
-                    Text(timer.setCaption)
-                        .opacity(0.5)
-                }
-                .font(.subheadline.weight(.semibold))
-                SetDots(dots: timer.dots)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 14)
-
-            }
+            TimerHeader { EndWorkoutButton() }  // 종료는 좌상단 길게 누르기(시안 3b·4a)
         } display: { numberSize in
             Button(action: timer.togglePause) {
-                VStack(spacing: 0) {
-                    BigNumber(text: "\(timer.displaySeconds)", size: numberSize, tracking: -numberSize * 0.05)
-                        .foregroundStyle(numberColor)
-                        .scaleEffect(isFinal ? 1.08 : 1)
-                    Group {
-                        if isFinal {
-                            CountdownTicks(step: timer.countdownStep)
-                        } else {
-                            Text(isPaused ? String(localized: "Tap to resume") : String(localized: "Tap to pause"))
-                                .font(.subheadline)
-                                .opacity(0.7)
-                        }
+                NumberSlot(text: "\(timer.displaySeconds)", size: numberSize, color: numberColor, scale: isFinal ? 1.08 : 1) {
+                    if isFinal {
+                        CountdownTicks(step: timer.countdownStep)
+                    } else {
+                        Text(isPaused ? String(localized: "Paused · Tap to resume") : String(localized: "Tap to pause"))  // 머리 제목이 종료 버튼이 돼서 일시정지 상태는 여기서 알린다(시안 tapHint)
+                            .font(.system(size: 17))
+                            .opacity(0.6)
                     }
-                    .frame(height: 20)
-                    .padding(.top, 20)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())
@@ -89,9 +67,8 @@ struct RunningView: View {
                     .layoutWeight(1.4)
                 }
                 .buttonStyle(.pressable)
-                EndWorkoutButton(onOrange: isFinal)
-                    .padding(.top, 6)
             }
+            .frame(minHeight: TimerControlsMetrics.minHeight, alignment: .bottom)
         }
         .foregroundStyle(.white)
         .background((isFinal ? Color.finalCountdown : Color.black).ignoresSafeArea())

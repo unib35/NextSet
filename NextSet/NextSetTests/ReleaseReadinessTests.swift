@@ -31,6 +31,14 @@ struct ReleaseReadinessTests {
         #expect(settings.restSeconds == 5)
         #expect(settings.recentSeconds == 600)
         #expect(settings.goalSets == 0)
+        #expect(!settings.repeatAlert) // 저장 키가 없는 이전 설정도 반복 꺼짐.
+        #expect(!TimerSettings().repeatAlert)
+        for enabled in [true, false] {
+            var saved = TimerSettings()
+            saved.repeatAlert = enabled
+            let restored = try JSONDecoder().decode(TimerSettings.self, from: JSONEncoder().encode(saved))
+            #expect(restored.repeatAlert == enabled) // 명시적으로 저장한 선택은 유지.
+        }
         let encoded = try JSONEncoder().encode(settings)
         #expect(!String(decoding: encoded, as: UTF8.self).contains("autoDetectSetEnd"))
     }
@@ -45,7 +53,7 @@ struct ReleaseReadinessTests {
         let snapshot = TimerSnapshot(settings: TimerSettings(), session: session)
         #expect(snapshot.session == TimerSession())
         #expect(snapshot.nextSetNumber == 1)
-        #expect(snapshot.dots == [.current])
+        #expect(snapshot.dots.isEmpty)
         session.completedSets = 0
         session.phase = .paused
         session.pausedRemaining = .infinity

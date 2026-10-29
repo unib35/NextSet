@@ -38,20 +38,53 @@ struct BigNumber: View {
     }
 }
 
+/// 3a·3b·4a·3c 큰 숫자 칸 + 아래 한 줄(단위·탭 안내·햅틱 점). 칸 높이를 고정해 대기 → 휴식으로 바뀌어도 숫자가 제자리에 있다.
+/// 시안: 숫자 168pt(자간 −9), 칸 152pt, 아래 줄은 18pt 띄운 20pt.
+struct NumberSlot<Caption: View>: View {
+    let text: String
+    let size: CGFloat
+    var color: Color = .brand
+    var scale: CGFloat = 1
+    @ViewBuilder var caption: () -> Caption
+
+    var body: some View {
+        VStack(spacing: 0) {
+            BigNumber(text: text, size: size, tracking: -size * 9 / 168)
+                .foregroundStyle(color)
+                .scaleEffect(scale)
+                .frame(height: size * 152 / 168)
+            caption()
+                .frame(height: 20)
+                .padding(.top, 18)
+        }
+    }
+}
+
 struct SetDots: View {
-    let dots: [SetDot]
+    let dots: SetProgress
     var size: CGFloat = 8
     var onOrange = false
 
     var body: some View {
-        HStack(spacing: 6) {
-            ForEach(dots.indices, id: \.self) { index in
-                Circle()
-                    .fill(color(for: dots[index]))
-                    .frame(width: size, height: size)
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 6) {
+                    ForEach(dots.indices, id: \.self) { index in
+                        Circle()
+                            .fill(color(for: dots[index]))
+                            .frame(width: size, height: size)
+                            .id(index)
+                    }
+                }
+            }
+            .scrollIndicators(.hidden)
+            .onChange(of: dots, initial: true) { _, progress in
+                proxy.scrollTo(progress.focusIndex, anchor: .trailing)
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: dots)
+        .frame(maxWidth: max(0, CGFloat(dots.count) * (size + 6) - 6), alignment: .leading)
+        .frame(height: 28)
+        .accessibilityHidden(true) // 인접 세트 캡션이 정확한 진행 수를 읽는다.
     }
 
     private func color(for dot: SetDot) -> Color {

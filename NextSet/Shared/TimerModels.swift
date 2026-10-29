@@ -56,7 +56,8 @@ enum SetDot: Equatable {
 struct TimerSettings: Codable, Hashable {
     static let restRange = 5...600
     static let goalRange = 0...20
-    static let presets = [30, 45, 60, 90, 120]
+    /// 3a 가로 스크롤 프리셋 (2026-10 시안).
+    static let presets = [10, 15, 20, 30, 45, 60, 75, 90, 105, 120, 150, 180, 240, 300]
 
     var mode: TimerMode = .sets
     var restSeconds = 60
@@ -65,7 +66,7 @@ struct TimerSettings: Codable, Hashable {
     var sound: AlertSound = .on
     var haptic: HapticLevel = .strong
     var countdownHaptics = true
-    var repeatAlert = true
+    var repeatAlert = false
     var widgetTap: WidgetTapAction = .start
     var liveActivity = true
 
@@ -81,7 +82,7 @@ struct TimerSettings: Codable, Hashable {
         sound = (try? c.decodeIfPresent(AlertSound.self, forKey: .sound)) ?? .on   // 예전 값 "short"/"long" → 켬
         haptic = (try? c.decodeIfPresent(HapticLevel.self, forKey: .haptic)) ?? .strong
         countdownHaptics = try c.decodeIfPresent(Bool.self, forKey: .countdownHaptics) ?? true
-        repeatAlert = try c.decodeIfPresent(Bool.self, forKey: .repeatAlert) ?? true
+        repeatAlert = try c.decodeIfPresent(Bool.self, forKey: .repeatAlert) ?? false
         widgetTap = (try? c.decodeIfPresent(WidgetTapAction.self, forKey: .widgetTap)) ?? .start
         liveActivity = try c.decodeIfPresent(Bool.self, forKey: .liveActivity) ?? true
         self = validated()
@@ -107,6 +108,7 @@ struct TimerSession: Codable, Hashable {
     // Optional fields preserve decoding of sessions saved before workout history existed.
     var workoutID: UUID?
     var startedAt: Date?
+    var lastSetProgressAt: Date? // 마지막 완료 세트 변화. nil은 이전 버전 세션.
     var restCount: Int?
     var historySaved: Bool?
     var phase: TimerPhase = .idle

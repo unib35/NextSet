@@ -146,7 +146,7 @@ struct RestTimerTests {
         timer.tick()
         #expect(timer.session.phase == .finished)
         #expect(timer.session.completedSets == 2)
-        #expect(timer.dots == [.past, .past])
+        #expect(Array(timer.dots) == [.past, .past])
 
         timer.startOver()
         #expect(timer.session == TimerSession())
@@ -169,7 +169,7 @@ struct RestTimerTests {
         #expect(timer.session.phase == .finished)
         #expect(timer.session.completedSets == 1)
         #expect(timer.session.totalRested == 90)
-        #expect(timer.dots == [.past])
+        #expect(Array(timer.dots) == [.past])
         #expect(timer.toast == nil)
 
         timer.endWorkout()  // 요약의 "끝내기"
@@ -252,6 +252,32 @@ struct RestTimerTests {
         #expect(timer.settings.restSeconds == 5)
         timer.adjustRestSeconds(by: 1000)
         #expect(timer.settings.restSeconds == 600)
+    }
+
+    /// T-83: 휴식 중에 설정 시트에서 기본 휴식·목표를 바꾸면 진행 중인 휴식은 그대로, 다음 휴식부터 적용.
+    @Test func settingsChangedDuringRestApplyFromNextRest() {
+        let clock = Clock()
+        let timer = makeTimer(clock)
+        timer.start()
+        clock.now += 20
+        timer.tick()
+
+        timer.adjustRestSeconds(by: 30)
+        #expect(timer.settings.restSeconds == 90)
+        #expect(timer.displaySeconds == 40)
+        #expect(timer.session.restDuration == 60)
+
+        timer.adjustGoal(by: 1)  // 무제한 → 2세트
+        #expect(timer.setCaption == "세트 1/2")  // 휴식 중엔 방금 끝낸 세트까지 센다
+
+        clock.now += 40
+        timer.tick()
+        #expect(timer.session.phase == .done)
+        timer.start()
+        #expect(timer.displaySeconds == 90)
+        clock.now += 90
+        timer.tick()
+        #expect(timer.session.phase == .finished)
     }
 
     /// T-01: 앱 안 재생과 알림 배너가 같은 파일을 쓴다. 번들에 없으면 둘 다 조용히 실패하므로 여기서 잡는다.

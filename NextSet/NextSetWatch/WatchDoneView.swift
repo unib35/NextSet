@@ -11,11 +11,12 @@ struct WatchDoneView: View {
             WatchCaptionRow(caption: timer.setCaption, onOrange: true) { WatchSetDots(dots: timer.dots, onOrange: true) }
             Spacer(minLength: 2)
             VStack(spacing: 0) {
-                Text(isFinished ? "ALL DONE" : "NEXT SET")
-                    .font(.system(size: 11, weight: .bold))
-                    .tracking(1.5)
-                    .opacity(0.6)
+                // 4f: 한국어 라벨(2026-10 시안), 큰 숫자와 겹치지 않게 띄운다.
+                Text(isFinished ? String(localized: "All done") : String(localized: "Next set"))
+                    .font(.system(size: 13, weight: .semibold))
+                    .opacity(0.7)
                 WatchBigNumber(text: isFinished ? "✓" : "\(timer.nextSetNumber)", color: .black)
+                    .padding(.top, 8)
             }
             Spacer(minLength: 2)
             HStack(spacing: 6) {

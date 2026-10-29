@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://apps.apple.com/kr/app/%EB%8B%A4%EC%9D%8C%EC%84%B8%ED%8A%B8-%ED%9C%B4%EC%8B%9D-%ED%83%80%EC%9D%B4%EB%A8%B8/id6814582323"><strong>Get it on the App Store →</strong></a>
+  <a href="https://apps.apple.com/app/id6814582323"><img src="assets/readme/badges/app-store-en.svg" height="54" alt="Download on the App Store"></a>
 </p>
 
 <h1 align="center">NextSet · Rest Timer</h1>
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://apps.apple.com/kr/app/%EB%8B%A4%EC%9D%8C%EC%84%B8%ED%8A%B8-%ED%9C%B4%EC%8B%9D-%ED%83%80%EC%9D%B4%EB%A8%B8/id6814582323">App Store</a> ·
+  <a href="https://apps.apple.com/app/id6814582323">App Store</a> ·
   <a href="#a-look-inside">Screenshots</a> ·
   <a href="#build">Build</a> ·
   <a href="https://unib35.github.io/NextSet/en/support.html">Support</a> ·
@@ -123,7 +123,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 
 ## Support and privacy
 
-- [App Store — 다음세트 - 휴식 타이머 (NextSet)](https://apps.apple.com/kr/app/%EB%8B%A4%EC%9D%8C%EC%84%B8%ED%8A%B8-%ED%9C%B4%EC%8B%9D-%ED%83%80%EC%9D%B4%EB%A8%B8/id6814582323)
+- [App Store — 다음세트 - 휴식 타이머 (NextSet)](https://apps.apple.com/app/id6814582323)
 - [English support](https://unib35.github.io/NextSet/en/support.html)
 - [Privacy policy](https://unib35.github.io/NextSet/en/privacy.html)
 - [한국어 지원](https://unib35.github.io/NextSet/ko/support.html)

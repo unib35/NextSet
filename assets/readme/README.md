@@ -19,3 +19,9 @@ full-size set (`tools/appstore-screenshots/render.sh`, `render-ipad.mjs`) and do
 (`sips --resampleWidth`); Watch stays at 410 × 502.
 
 Use relative paths in the root README so assets work on branches and forks. Keep meaningful alt text and describe features in Markdown, outside the images.
+
+## App Store 배지
+
+`badges/app-store-ko.svg`, `badges/app-store-en.svg`는 Apple 마케팅 도구에서 받은 공식 "App Store에서 다운로드" 배지다(검정, ko-kr / en-us). 수정하지 않고 그대로 쓴다. 다시 받기:
+`https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/ko-kr` (영어는 `en-us`).
+README 의 스토어 링크는 국가 코드 없는 `https://apps.apple.com/app/id6814582323` — 보는 사람의 나라 스토어로 열린다.

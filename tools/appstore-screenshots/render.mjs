@@ -9,7 +9,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const seconds = Number(process.argv[2] ?? 60);
 if (![45, 60, 90].includes(seconds)) throw new Error('Usage: render.sh [45|60|90]');
-const out = resolve(here, '../../docs/release/screenshots');
+const out = resolve(here, '../../docs/release/screenshots/1.0');
 const validation = resolve(here, '../../docs/validation/T-63');
 const profile = await mkdtemp(join(tmpdir(), 'nextset-render-'));
 const browser = spawn(process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [

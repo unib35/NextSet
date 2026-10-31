@@ -4,4 +4,4 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 node "$HERE/render.mjs" "${1:-60}"
-sips -g pixelWidth -g pixelHeight -g hasAlpha "$HERE/../../docs/release/screenshots/"{ko,en}/*.png
+sips -g pixelWidth -g pixelHeight -g hasAlpha "$HERE/../../docs/release/screenshots/1.0/"{ko,en}/*.png

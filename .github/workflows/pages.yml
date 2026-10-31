@@ -5,6 +5,7 @@ on:
     paths:
       - 'NextSet/NextSet/*.lproj/PrivacyPolicy.txt'
       - 'docs/release/SUPPORT*.md'
+      - 'docs/release/CHANGELOG*.md'
       - 'tools/release-site/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:

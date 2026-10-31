@@ -5,6 +5,16 @@
 </p>
 
 <p align="center">
+  <img src="assets/readme/icons/app-icon-light.png" width="100" alt="App icon — Light">
+  &nbsp;
+  <img src="assets/readme/icons/app-icon-dark.png" width="100" alt="App icon — Dark">
+  &nbsp;
+  <img src="assets/readme/icons/app-icon-tinted.png" width="100" alt="App icon — Tinted">
+  <br>
+  <sub>Light · Dark · Tinted</sub>
+</p>
+
+<p align="center">
   <a href="https://apps.apple.com/app/id6814582323"><img src="assets/readme/badges/app-store-en.svg" height="54" alt="Download on the App Store"></a>
 </p>
 
@@ -125,6 +135,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 
 - [App Store — 다음세트 - 휴식 타이머 (NextSet)](https://apps.apple.com/app/id6814582323)
 - [English support](https://unib35.github.io/NextSet/en/support.html)
+- [What's New](https://unib35.github.io/NextSet/en/changelog.html)
 - [Privacy policy](https://unib35.github.io/NextSet/en/privacy.html)
 - [한국어 지원](https://unib35.github.io/NextSet/ko/support.html)
 - [한국어 개인정보처리방침](https://unib35.github.io/NextSet/ko/privacy.html)
@@ -132,7 +143,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 ## GitHub Pages
 
 The app source and public page sources live in this repository.
-`tools/release-site/build.py` generates `docs/release/site` using the app's localized privacy resources and `docs/release/SUPPORT*.md`.
+`tools/release-site/build.py` generates `docs/release/site` using the app's localized privacy resources `docs/release/SUPPORT*.md`, and `docs/release/CHANGELOG*.md`.
 The Pages workflow publishes only that generated directory, never the app source tree.
 
 ```sh

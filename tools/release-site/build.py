@@ -39,13 +39,15 @@ for lang in ['ko', 'en']:
     support = (ROOT / ('docs/release/SUPPORT.md' if lang == 'ko' else 'docs/release/SUPPORT.en.md')).read_text()
     title = '개인정보 처리방침' if lang == 'ko' else 'Privacy Policy'
     policy = f'# {title}\n\n' + ('최종 수정: 2026-09-22' if lang == 'ko' else 'Last updated: September 22, 2026') + '\n\n' + policy
-    for filename, body, page_title in [('privacy.html', policy, title), ('support.html', support, '지원' if lang == 'ko' else 'Support')]:
-        body = body.replace('(PRIVACY.md)', '(privacy.html)')
-        nav = '<a href="support.html">' + ('지원' if lang == 'ko' else 'Support') + '</a> <a href="privacy.html">' + title + '</a>'
+    changelog = (ROOT / ('docs/release/CHANGELOG.md' if lang == 'ko' else 'docs/release/CHANGELOG.en.md')).read_text()
+    changes = '업데이트 내역' if lang == 'ko' else "What's New"
+    for filename, body, page_title in [('privacy.html', policy, title), ('support.html', support, '지원' if lang == 'ko' else 'Support'), ('changelog.html', changelog, changes)]:
+        body = body.replace('(PRIVACY.md)', '(privacy.html)').replace('(CHANGELOG.md)', '(changelog.html)')
+        nav = '<a href="support.html">' + ('지원' if lang == 'ko' else 'Support') + '</a> <a href="changelog.html">' + changes + '</a> <a href="privacy.html">' + title + '</a>'
         other = 'en' if lang == 'ko' else 'ko'
         nav += f' <a href="../{other}/{filename}" lang="{other}">' + ('English' if lang == 'ko' else '한국어') + '</a>'
         page = f'<!doctype html>\n<html lang="{lang}"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{page_title} · NextSet</title><style>{STYLE}</style><main><nav aria-label="Navigation">{nav}</nav>{markdown(body)}</main></html>\n'
         (folder / filename).write_text(page)
 OUT.mkdir(parents=True, exist_ok=True)
-(OUT / 'index.html').write_text('<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NextSet</title><main><h1>NextSet · 다음세트</h1><p><a href="ko/support.html">한국어 지원</a></p><p><a href="en/support.html">English Support</a></p></main></html>\n')
+(OUT / 'index.html').write_text('<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NextSet</title><main><h1>NextSet · 다음세트</h1><p><a href="ko/support.html">한국어 지원</a> · <a href="ko/changelog.html">업데이트 내역</a></p><p><a href="en/support.html">English Support</a> · <a href="en/changelog.html">What&#39;s New</a></p></main></html>\n')
 print('Generated', OUT)

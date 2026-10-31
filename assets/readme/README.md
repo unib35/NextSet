@@ -25,3 +25,8 @@ Use relative paths in the root README so assets work on branches and forks. Keep
 `badges/app-store-ko.svg`, `badges/app-store-en.svg`는 Apple 마케팅 도구에서 받은 공식 "App Store에서 다운로드" 배지다(검정, ko-kr / en-us). 수정하지 않고 그대로 쓴다. 다시 받기:
 `https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/ko-kr` (영어는 `en-us`).
 README 의 스토어 링크는 국가 코드 없는 `https://apps.apple.com/app/id6814582323` — 보는 사람의 나라 스토어로 열린다.
+
+## 앱 아이콘
+
+`icons/app-icon-{light,dark,tinted}.png`(256 × 256, 투명 모서리)는 `NextSet/NextSet/AppIcon.icon`을 Icon Composer 의 `ictool`로 렌더한 것이다. 색조는 `TintedLight` 기본 색. 아이콘을 바꾸면 다시 만든다:
+`"/Applications/Xcode.app/Contents/Applications/Icon Composer.app/Contents/Executables/ictool" NextSet/NextSet/AppIcon.icon --export-image --output-file assets/readme/icons/app-icon-light.png --platform iOS --rendition Default --width 256 --height 256 --scale 1` (다크 `Dark`, 색조 `TintedLight`).

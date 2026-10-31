@@ -5,6 +5,16 @@
 </p>
 
 <p align="center">
+  <img src="assets/readme/icons/app-icon-light.png" width="100" alt="앱 아이콘 — 라이트">
+  &nbsp;
+  <img src="assets/readme/icons/app-icon-dark.png" width="100" alt="앱 아이콘 — 다크">
+  &nbsp;
+  <img src="assets/readme/icons/app-icon-tinted.png" width="100" alt="앱 아이콘 — 색조">
+  <br>
+  <sub>라이트 · 다크 · 색조</sub>
+</p>
+
+<p align="center">
   <a href="https://apps.apple.com/app/id6814582323"><img src="assets/readme/badges/app-store-ko.svg" height="54" alt="App Store에서 다운로드"></a>
 </p>
 
@@ -125,6 +135,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 
 - [App Store — 다음세트 - 휴식 타이머](https://apps.apple.com/app/id6814582323)
 - [한국어 지원](https://unib35.github.io/NextSet/ko/support.html)
+- [업데이트 내역](https://unib35.github.io/NextSet/ko/changelog.html)
 - [한국어 개인정보처리방침](https://unib35.github.io/NextSet/ko/privacy.html)
 - [English support](https://unib35.github.io/NextSet/en/support.html)
 - [Privacy policy](https://unib35.github.io/NextSet/en/privacy.html)
@@ -132,7 +143,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 ## GitHub Pages
 
 앱 소스와 공개 웹페이지 원본을 이 저장소에서 함께 관리합니다.
-`tools/release-site/build.py`는 앱의 언어별 개인정보처리방침 리소스와 `docs/release/SUPPORT*.md`를 사용해 `docs/release/site`를 생성합니다.
+`tools/release-site/build.py`는 앱의 언어별 개인정보처리방침 리소스와 `docs/release/SUPPORT*.md`, `docs/release/CHANGELOG*.md`를 사용해 `docs/release/site`를 생성합니다.
 Pages 워크플로는 생성된 디렉터리만 웹사이트로 배포합니다.
 
 ```sh

@@ -10,7 +10,7 @@ Include your device model, OS version, app version, and the steps that led to th
 
 ## Changing the rest duration
 
-Choose a preset on the timer screen or change the default rest duration in Settings.
+Swipe the preset row on the timer screen to pick 10s–5min, or change Default rest in Settings (gear). You can open Settings during rest too; a new default applies from your next rest.
 
 ## Alerts and Apple Watch
 
@@ -20,7 +20,11 @@ Changes made on another device require a connection. While disconnected, also ch
 
 ## Missing sounds or notifications
 
-Check the app's Sound option and your device's notification permissions, volume, and Focus settings. The final 3-second sound and haptic cues play while the app is open. Background rest-end alerts use system notifications.
+Check the app's Sound option and your device's notification permissions and volume. The final 3-second sound and haptic cues play while the app is open.
+
+**On iOS 26 or later**, allow alarms at your first rest and rest end rings as an alarm, even in Silent mode or a Focus. Tap "+30 sec" to rest a little longer. If you declined, turn it back on in iPhone Settings → Apps → NextSet.
+
+**On iOS 18, or without alarms**, rest end uses a notification, which only vibrates in Silent mode. To get it during a Focus, turn on Settings → Notifications → NextSet → Time Sensitive Notifications. The app's Advanced settings show a notice when it is off.
 
 If the app reports that an alert could not be scheduled, tap Try again. If it still fails, keep the app open until rest ends and check your notification settings.
 
@@ -28,7 +32,11 @@ If the app reports that an alert could not be scheduled, tap Try again. If it st
 
 Enable Live Activity in Settings to show the timer on supported Lock Screens and Dynamic Island. The system may delay the transition to the rest-ended display.
 
-For widget setup, open Settings → How to add widgets.
+For widget setup, open Settings (gear) → All settings → How to add widgets.
+
+## Ending a workout
+
+Press and hold End at the top left for about a second. A short tap does nothing, so you won't end by accident. With VoiceOver, a confirmation appears instead.
 
 ## Workout records
 
@@ -38,4 +46,4 @@ Delete records using the trash button in Recent workouts. Deletion applies to th
 
 ## Privacy
 
-[Privacy Policy](PRIVACY.md)
+[What's New](CHANGELOG.md) · [Privacy Policy](PRIVACY.md)

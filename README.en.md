@@ -1,7 +1,10 @@
 <p align="center"><a href="README.md">한국어</a> · <strong>English</strong></p>
 
 <p align="center">
-  <img src="assets/readme/hero.png" width="100%" alt="NextSet — Rest. Reset. Go again. A workout rest timer banner built around an orange 30">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)" srcset="assets/readme/hero-en.png">
+    <img src="assets/readme/hero-en.gif" width="100%" alt="NextSet — One tap. The rest is lifting. A banner counting down from 5 to 1, then turning orange when rest ends">
+  </picture>
 </p>
 
 <p align="center">

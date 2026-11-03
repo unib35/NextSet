@@ -17,6 +17,7 @@ OUT = ROOT / 'docs/release/site'
 STATIC = Path(__file__).resolve().parent / 'static'
 EMAIL = 'jm.jongminlee@gmail.com'
 STORE = 'https://apps.apple.com/app/id6814582323'
+BASE = 'https://unib35.github.io/NextSet/'
 FONT = 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css'
 FAVICON = ("data:image/svg+xml," + quote('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#FF9500"/>'
            '<text x="-3" y="70" font-family="-apple-system,Helvetica,Arial" font-size="74" font-weight="800" letter-spacing="-4" fill="#000">30</text></svg>'))
@@ -47,7 +48,7 @@ T = {
         mail_subject='[다음세트] 문의', mail_body='기기 모델:\niOS / watchOS 버전:\n앱 버전:\n문제가 발생한 순서:\n1. \n',
         changelog_title='무엇이 바뀌었나요',
         policy_title='기록은 기기에만 남습니다', checks=['회원가입 없음', '개발자 서버 전송 없음', '광고·추적 SDK 없음'], updated='최종 수정 2026-09-22',
-        description='운동 세트 사이 휴식 시간을 빠르게 재는 타이머. iPhone, iPad, Apple Watch.',
+        description='운동 세트 사이 휴식 시간을 빠르게 재는 타이머. iPhone, iPad, Apple Watch.', locale='ko_KR', og_alt='다음세트 — 탭 한 번, 나머진 운동만',
     ),
     'en': dict(
         brand='NextSet', foot_brand='NextSet · 다음세트', tagline='A workout rest timer for iPhone, iPad, and Apple Watch',
@@ -71,7 +72,7 @@ T = {
         mail_subject='[NextSet] Support', mail_body='Device model:\niOS / watchOS version:\nApp version:\nSteps that led to the issue:\n1. \n',
         changelog_title='What’s changed',
         policy_title='Your records stay on your device', checks=['No account', 'No developer server', 'No ads or tracking SDKs'], updated='Last updated September 22, 2026',
-        description='A workout rest timer for the time between sets. iPhone, iPad, and Apple Watch.',
+        description='A workout rest timer for the time between sets. iPhone, iPad, and Apple Watch.', locale='en_US', og_alt='NextSet — One tap. The rest is lifting.',
     ),
 }
 
@@ -143,6 +144,22 @@ def read_policy(lang):
     return intro, sections
 
 
+def share(lang, title, path):
+    """링크 공유 미리보기(Open Graph). 그림은 README 헤더의 정지 PNG 로 만든 1200×630."""
+    t = T[lang]
+    return f'''<meta property="og:type" content="website">
+<meta property="og:site_name" content="{t['brand']}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(t['description'])}">
+<meta property="og:url" content="{BASE}{path}">
+<meta property="og:locale" content="{t['locale']}">
+<meta property="og:image" content="{BASE}assets/og-{lang}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(t['og_alt'])}">
+<meta name="twitter:card" content="summary_large_image">'''
+
+
 def page(lang, name, title, body, current=None):
     t = T[lang]
     other = 'en' if lang == 'ko' else 'ko'
@@ -156,6 +173,7 @@ def page(lang, name, title, body, current=None):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(t['description'])}">
 <meta name="theme-color" content="#000000">
+{share(lang, title, f'{lang}/{name}')}
 <link rel="icon" href="{FAVICON}">
 <link rel="alternate" hreflang="{other}" href="../{other}/{name}">
 <link rel="stylesheet" href="{FONT}">
@@ -340,6 +358,7 @@ for lang in ['ko', 'en']:
 # 루트는 언어를 골라 보낸다. 한국어(또는 판단 불가)는 ko, 그 밖은 en.
 (OUT / 'index.html').write_text('''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>다음세트 · NextSet</title>
+''' + share('ko', '다음세트 · NextSet', '') + '''
 <meta http-equiv="refresh" content="0; url=ko/">
 <script>try{var l=(navigator.languages&&navigator.languages[0])||navigator.language||'ko';location.replace(/^ko/i.test(l)?'ko/':'en/')}catch(e){}</script>
 </head><body style="background:#000"><a href="ko/" style="color:#FF9500">다음세트</a> · <a href="en/" style="color:#FF9500">NextSet</a></body></html>

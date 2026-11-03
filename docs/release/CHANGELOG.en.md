@@ -1,6 +1,6 @@
 # What's New
 
-## 1.1.0 — In review
+## 1.1.0 — November 1, 2026
 
 - Open Settings anytime, even during rest. A new default rest applies from your next rest.
 - Refreshed screens: press and hold End (top left) to finish a workout, and swipe the preset row to pick 10s–5min.

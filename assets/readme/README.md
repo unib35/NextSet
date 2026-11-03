@@ -4,9 +4,11 @@ Orange `#FF9500`, near-black, oversized timer numerals, and bold typography.
 
 | Asset | Size | Use |
 | --- | --- | --- |
-| [hero.png](hero.png) | 2172 × 724 | English README banner (`README.en.md`), 3:1 |
+| [hero-ko.gif](hero-ko.gif) · [hero-en.gif](hero-en.gif) | 1600 × 534 | README banners (`README.md` / `README.en.md`), animated, 3:1 (2026-11) |
+| [hero-ko.png](hero-ko.png) · [hero-en.png](hero-en.png) | 3200 × 1068 | Still versions, shown when Reduce Motion is on |
+| [hero.png](hero.png) | 2172 × 724 | Previous English banner (unused since 2026-11) |
 | [social-preview.png](social-preview.png) | 1774 × 887 | Separate sharing cover, 2:1; not yet configured in repository settings |
-| [ko/hero.png](ko/hero.png) | 2172 × 724 | Korean README banner (`README.md`), 3:1 |
+| [ko/hero.png](ko/hero.png) | 2172 × 724 | Previous Korean banner (unused since 2026-11) |
 | [ko/social-preview.png](ko/social-preview.png) | 1774 × 887 | Korean sharing cover, 2:1 |
 | [store/ko/](store/ko/) · [store/en/](store/en/) | iPhone 642 × 1389 · iPad 1032 × 1376 · Watch 410 × 502 | The App Store screenshot set (iPhone 8, iPad 4, Watch 3 per language) shown in both READMEs |
 

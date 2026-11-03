@@ -1,7 +1,10 @@
 <p align="center"><strong>한국어</strong> · <a href="README.en.md">English</a></p>
 
 <p align="center">
-  <img src="assets/readme/ko/hero.png" width="100%" alt="다음세트 — 주황색 30을 모티프로 한 운동 휴식 타이머 배너">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)" srcset="assets/readme/hero-ko.png">
+    <img src="assets/readme/hero-ko.gif" width="100%" alt="다음세트 — 탭 한 번, 나머진 운동만. 숫자가 5부터 1까지 줄어든 뒤 주황색 휴식 끝 화면으로 바뀌는 배너">
+  </picture>
 </p>
 
 <p align="center">

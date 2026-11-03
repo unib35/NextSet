@@ -85,6 +85,10 @@ body{min-height:100vh;display:flex;flex-direction:column}
 .end .in{max-width:720px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px}
 .end p{margin:0;font-size:17px;line-height:1.65;color:var(--mute);word-break:keep-all;text-wrap:pretty}
 .end .btn{margin-top:12px}
+.icons{margin-top:16px;display:flex;justify-content:center;gap:clamp(16px,4vw,32px)}
+.icons figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.icons img{width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
+.icons figcaption{font-size:13px;font-weight:600;color:var(--mute)}
 
 /* 하위 페이지 공통 */
 .page{flex:1;width:100%;max-width:1120px;margin:0 auto;padding:clamp(40px,6vw,72px) 24px clamp(64px,8vw,96px)}

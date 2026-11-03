@@ -41,6 +41,7 @@ T = {
                ('+30', '조금 더 쉬고 싶을 때', '휴식 중에는 −10 · +10 · +30으로 바로 조절하고, 알람이 울리면 ‘+30초 더 쉬기’ 한 번이면 됩니다.'),
                ('0', '회원가입도, 서버 전송도 없이', '타이머와 최근 운동 30회 요약은 기기에만 저장돼요. 광고·추적·외부 분석 SDK를 쓰지 않습니다.')],
         privacy_more='개인정보 처리방침 →',
+        icons=['라이트', '다크', '색조'], icons_alt='앱 아이콘 — {}',
         end_title='어디서 시작해도 같은 숫자', end_text='iPhone, iPad, Apple Watch는 물론 잠금화면 · Dynamic Island · 위젯 · 제어 센터에서도 같은 휴식을 보고 조작해요.',
         support_title='다음세트 지원', all='전체', contact='문의', send='이메일 보내기', copy='복사', copied='복사됨', include='함께 알려 주세요',
         include_items=['iPhone · Apple Watch 모델', 'iOS · watchOS 버전', '앱 버전', '문제가 발생한 순서'],
@@ -65,6 +66,7 @@ T = {
                ('+30', 'Need a little longer?', 'Adjust with −10 · +10 · +30 during rest. When the alarm rings, just tap “+30 sec”.'),
                ('0', 'No account. No uploads.', 'Your timer and last 30 workout summaries stay on your device. No advertising, tracking, or third-party analytics SDKs.')],
         privacy_more='Privacy Policy →',
+        icons=['Light', 'Dark', 'Tinted'], icons_alt='App icon — {}',
         end_title='The same number, everywhere', end_text='See and control the same rest on iPhone, iPad, and Apple Watch — plus the Lock Screen, Dynamic Island, widgets, and Control Center.',
         support_title='NextSet Support', all='All', contact='Contact', send='Send email', copy='Copy', copied='Copied', include='Please include',
         include_items=['iPhone and Apple Watch model', 'iOS and watchOS version', 'App version', 'Steps that led to the issue'],
@@ -214,6 +216,8 @@ def home(lang, releases):
     feats = '\n'.join(f'<div class="feat"><div class="n">{n}</div><div class="d"><h3>{esc(h)}</h3><p>{esc(p)}</p>'
                       + (f'<a class="more" href="privacy.html">{t["privacy_more"]}</a>' if i == 3 else '') + '</div></div>'
                       for i, (n, h, p) in enumerate(t['feats']))
+    icons = ''.join(f'<figure><img src="../assets/icons/app-icon-{k}.png" alt="{esc(t["icons_alt"].format(label))}" width="88" height="88" loading="lazy"><figcaption>{esc(label)}</figcaption></figure>'
+                    for k, label in zip(['light', 'dark', 'tinted'], t['icons']))
     body = f'''<main>
 <section class="hero" id="hero" data-hints="{esc(json.dumps(t['hints'], ensure_ascii=False))}"><div class="wrap">
 <a class="news" href="changelog.html">{news}</a>
@@ -240,6 +244,7 @@ def home(lang, releases):
 <section class="end"><div class="in">
 <h2 class="big">{t['end_title']}</h2>
 <p>{t['end_text']}</p>
+<div class="icons">{icons}</div>
 <a class="btn orange" href="{STORE}">{t['download']}</a>
 <span class="sub">{t['requires']}</span>
 </div></section>

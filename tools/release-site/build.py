@@ -6,6 +6,7 @@ Static files (CSS, JS, screenshots) are in tools/release-site/static and copied 
 URLs stay as before: <lang>/support.html, <lang>/privacy.html, plus <lang>/index.html and <lang>/changelog.html.
 """
 from pathlib import Path
+import hashlib
 import html
 import json
 import re
@@ -162,6 +163,11 @@ def share(lang, title, path):
 <meta name="twitter:card" content="summary_large_image">'''
 
 
+def asset(name):
+    """CSS·JS 주소에 내용 해시를 붙인다 — 바뀌면 브라우저가 예전 캐시 대신 새로 받는다."""
+    return f'../assets/{name}?v={hashlib.sha256((STATIC / name).read_bytes()).hexdigest()[:10]}'
+
+
 def page(lang, name, title, body, current=None):
     t = T[lang]
     other = 'en' if lang == 'ko' else 'ko'
@@ -179,7 +185,7 @@ def page(lang, name, title, body, current=None):
 <link rel="icon" href="{FAVICON}">
 <link rel="alternate" hreflang="{other}" href="../{other}/{name}">
 <link rel="stylesheet" href="{FONT}">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="{asset('site.css')}">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -196,7 +202,7 @@ def page(lang, name, title, body, current=None):
 <div class="id"><div class="name"><span class="mark sm" aria-hidden="true"><span>30</span></span>{t['foot_brand']}</div><span class="tagline">{t['tagline']}</span></div>
 <div class="links"><a href="support.html">{t['support']}</a><a href="changelog.html">{t['changelog']}</a><a href="privacy.html">{t['privacy_full']}</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
 </div></footer>
-<script src="../assets/site.js" defer></script>
+<script src="{asset('site.js')}" defer></script>
 </body>
 </html>
 '''

@@ -216,6 +216,9 @@ def home(lang, releases):
     feats = '\n'.join(f'<div class="feat"><div class="n">{n}</div><div class="d"><h3>{esc(h)}</h3><p>{esc(p)}</p>'
                       + (f'<a class="more" href="privacy.html">{t["privacy_more"]}</a>' if i == 3 else '') + '</div></div>'
                       for i, (n, h, p) in enumerate(t['feats']))
+    # Apple 공식 배지(assets/readme/badges 와 같은 파일). 고치지 않고 그대로 쓴다. 비율 ko 129.7:40, en 119.7:40.
+    badge = (f'<a class="badge" href="{STORE}"><img src="../assets/badges/app-store-{lang}.svg" alt="{esc(t["download"])}" '
+             f'width="{182 if lang == "ko" else 168}" height="56"></a>')
     icons = ''.join(f'<figure><img src="../assets/icons/app-icon-{k}.png" alt="{esc(t["icons_alt"].format(label))}" width="88" height="88" loading="lazy"><figcaption>{esc(label)}</figcaption></figure>'
                     for k, label in zip(['light', 'dark', 'tinted'], t['icons']))
     body = f'''<main>
@@ -225,7 +228,7 @@ def home(lang, releases):
 <button type="button" class="timer" aria-label="{t['try_aria']}"><span class="num">60</span><span class="hint" aria-live="polite">{t['hints']['idle']}</span></button>
 <div class="track" aria-hidden="true"><i></i></div>
 <div class="presets">{presets}</div>
-<div class="cta"><a class="btn white" href="{STORE}">{t['download']}</a><span class="sub">{t['devices']}</span></div>
+<div class="cta">{badge}<span class="sub">{t['devices']}</span></div>
 </div></section>
 
 <section class="sec">
@@ -245,7 +248,7 @@ def home(lang, releases):
 <h2 class="big">{t['end_title']}</h2>
 <p>{t['end_text']}</p>
 <div class="icons">{icons}</div>
-<a class="btn orange" href="{STORE}">{t['download']}</a>
+{badge}
 <span class="sub">{t['requires']}</span>
 </div></section>
 </main>'''

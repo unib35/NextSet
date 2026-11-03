@@ -58,6 +58,11 @@ body{min-height:100vh;display:flex;flex-direction:column}
 .btn.white:hover{background:#f2f2f2;color:#000}
 .btn.orange{background:var(--o);color:#000}
 .btn.orange:hover{background:var(--o2);color:#000}
+.badge{display:inline-flex;border-radius:12px;transition:transform .15s,opacity .15s}
+.badge:hover{opacity:.85}
+.badge:active{transform:scale(.97)}
+.badge img{display:block;height:56px;width:auto}
+.end .badge{margin-top:12px}
 .sub{font-size:14px;font-weight:500;color:var(--mute)}
 
 /* 홈 — 섹션 */

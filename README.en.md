@@ -143,7 +143,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 ## GitHub Pages
 
 The app source and public page sources live in this repository.
-`tools/release-site/build.py` generates `docs/release/site` using the app's localized privacy resources `docs/release/SUPPORT*.md`, and `docs/release/CHANGELOG*.md`.
+`tools/release-site/build.py` generates `docs/release/site` using the app's localized privacy resources `docs/release/SUPPORT*.md`, and `docs/release/CHANGELOG*.md`. Styles, scripts, and screenshots live in `tools/release-site/static/`.
 The Pages workflow publishes only that generated directory, never the app source tree.
 
 ```sh

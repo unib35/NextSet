@@ -143,7 +143,7 @@ xcodebuild test -project NextSet/NextSet.xcodeproj -scheme NextSet \
 ## GitHub Pages
 
 앱 소스와 공개 웹페이지 원본을 이 저장소에서 함께 관리합니다.
-`tools/release-site/build.py`는 앱의 언어별 개인정보처리방침 리소스와 `docs/release/SUPPORT*.md`, `docs/release/CHANGELOG*.md`를 사용해 `docs/release/site`를 생성합니다.
+`tools/release-site/build.py`는 앱의 언어별 개인정보처리방침 리소스와 `docs/release/SUPPORT*.md`, `docs/release/CHANGELOG*.md`를 사용해 `docs/release/site`를 생성합니다. 화면 구성은 `tools/release-site/static/`(CSS·JS·스크린샷)에 있습니다.
 Pages 워크플로는 생성된 디렉터리만 웹사이트로 배포합니다.
 
 ```sh
